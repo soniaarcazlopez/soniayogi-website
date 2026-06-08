@@ -53,48 +53,66 @@ Primary address: **https://soniayogi.com** (the bare domain). `www.soniayogi.com
 
 ---
 
-## PART B — Point the domain at GitHub (DNS in Squarespace)
+## PART B — Point the domain at GitHub (DNS)
 
-Your domain `soniayogi.com` is managed in Squarespace, so the DNS records are edited there.
+Your domain is **registered at Bluehost** and your current site is **hosted at Squarespace**. DNS (the records that decide where the domain points) lives in **one** of those two places — you must edit it wherever it is actually being managed. First find out which, then follow B2 or B3.
 
-> Important: this only changes where the **domain** points. If your old Squarespace **site** is still published, you'll be moving the domain off it onto the new GitHub site. Make sure that's what you want before saving.
+> Important: this moves the **domain** from your old Squarespace site onto the new GitHub site. Only do it when you're ready for soniayogi.com to show the new site.
 
-### B1. Open the domain's DNS settings
-1. Log in to https://account.squarespace.com.
-2. Go to **Domains** → click **soniayogi.com**.
-3. Open **DNS** / **DNS Settings** (sometimes under "Advanced settings" or "DNS").
+### B1. Find out who controls your DNS (check the nameservers)
+1. Go to https://lookup.icann.org and search `soniayogi.com` (or use https://www.whatsmydns.net and choose record type **NS**).
+2. Look at the **Name Servers** listed:
+   - If they contain **bluehost.com** (e.g. `ns1.bluehost.com`) → your DNS is at **Bluehost** → follow **B2**.
+   - If they contain **squarespace** or **squarespacedns.com** → your DNS is at **Squarespace** → follow **B3**.
+3. Whichever it is, that's the only place the records below need to go. (Editing the other one will have no effect.)
 
-### B2. Remove conflicting records
-- In the custom records list, **delete any existing `A` records** on host `@` that point to Squarespace's own IP addresses, and **delete any existing `CNAME` on `www`** that points to Squarespace.
-- Leave `MX` records (email) and any `TXT` verification records alone.
+### B2. If DNS is at BLUEHOST
+1. Sign in at https://my.bluehost.com.
+2. Go to **Domains** → select **soniayogi.com** → open **DNS** (or **Manage** → **DNS / Zone Editor**).
+3. **Remove conflicting records:** delete any existing **`A` record on host `@`** that points to Squarespace, and any **`CNAME` on `www`** that points to Squarespace. Leave `MX` (email) and `TXT` records alone.
+4. **Add the four GitHub A records** (see the table in B4).
+5. **Add the www CNAME** (see B4).
+6. Save. Skip to **B5**.
 
-### B3. Add the four GitHub A records (apex domain)
-Add each of these as a new custom record:
+### B3. If DNS is at SQUARESPACE
+1. Sign in at https://account.squarespace.com → **Domains** → **soniayogi.com** → **DNS Settings**.
+2. **Remove conflicting records:** delete the existing Squarespace **`A` records on `@`** and the **`www` CNAME** that points to Squarespace. Leave `MX` and `TXT` records alone.
+3. **Add the four GitHub A records** (see the table in B4).
+4. **Add the www CNAME** (see B4).
+5. Save. Continue to **B5**.
 
-| Type | Host | Value (Data) |
-|------|------|--------------|
+### B4. The exact records to add (same for either provider)
+
+Four A records on the apex (`@`):
+
+| Type | Host / Name | Value (Points to) |
+|------|-------------|-------------------|
 | A | `@` | `185.199.108.153` |
 | A | `@` | `185.199.109.153` |
 | A | `@` | `185.199.110.153` |
 | A | `@` | `185.199.111.153` |
 
-### B4. Add the www redirect
-| Type | Host | Value (Data) |
-|------|------|--------------|
+One CNAME for `www`:
+
+| Type | Host / Name | Value (Points to) |
+|------|-------------|-------------------|
 | CNAME | `www` | `<your-username>.github.io` |
 
-Replace `<your-username>` with your GitHub username (lowercase). Example: if your username is `soniayoga`, the value is `soniayoga.github.io`. (No `https://`, no repo name — just the host, and a trailing dot is fine if Squarespace adds one.)
+Replace `<your-username>` with your GitHub username in lowercase — e.g. `soniayoga.github.io`. No `https://`, no repo name, just the host (a trailing dot is fine if the panel adds one).
 
-### B5. (Optional) IPv6 — add four AAAA records on `@`
-`2606:50c0:8000::153`, `2606:50c0:8001::153`, `2606:50c0:8002::153`, `2606:50c0:8003::153`
+*(Optional IPv6 — four AAAA records on `@`):* `2606:50c0:8000::153`, `2606:50c0:8001::153`, `2606:50c0:8002::153`, `2606:50c0:8003::153`
 
-### B6. Save and wait
-- Save the records. DNS usually updates within minutes, but can take up to 24–48 hours.
-- Back in **GitHub → Settings → Pages**, the custom-domain check will go green once it sees the records. Then tick **Enforce HTTPS** (GitHub issues a free SSL certificate automatically — this can take up to an hour).
+> Note on `@`: some panels use `@` for the bare domain, others want it left blank or want you to type `soniayogi.com`. They all mean the same thing.
 
-### B7. Confirm
+### B5. Save and wait
+- DNS usually updates within minutes but can take up to 24–48 hours.
+- Back in **GitHub → Settings → Pages**, the custom-domain check goes green once it sees the records. Then tick **Enforce HTTPS** (GitHub issues a free SSL certificate automatically — can take up to an hour).
+
+### B6. Confirm
 - Visit `https://soniayogi.com` — the new site should load over HTTPS.
 - Visit `https://www.soniayogi.com` — it should redirect to `https://soniayogi.com`.
+
+> If your email runs on this domain (e.g. info@soniayogi.com), don't touch the `MX` and related `TXT` records — leaving them as-is keeps your email working.
 
 ---
 
