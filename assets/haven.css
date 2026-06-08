@@ -279,6 +279,11 @@ html{scroll-padding-top:108px;} /* focus & anchors not obscured by sticky header
 .footer-areas{max-width:var(--maxw);margin:2rem auto 0;font-size:.85rem;color:rgba(250,246,236,.6);line-height:1.7;}
 .footer-areas strong{color:rgba(250,246,236,.85);font-weight:600;}
 
+/* ---------- image focus (portrait crops) ---------- */
+img[src*="meditation-sonia"]{object-position:center 12%;}
+img[src*="hero-sonia"]{object-position:center 18%;}
+img[src*="corporate"]{object-position:center 22%;}
+
 /* ---------- reveal ---------- */
 .reveal{opacity:0;transform:translateY(22px);transition:opacity .8s ease,transform .8s ease;}
 .reveal.in{opacity:1;transform:none;}
