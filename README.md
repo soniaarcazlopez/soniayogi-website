@@ -130,6 +130,11 @@ Edit a file (locally or directly on GitHub via the pencil ✏️ icon) and commi
   5. `Meet SoniaYogi.jpg` — About / Private Sessions
   6. `IMG_7295.JPG` — Morning Meditation
   7. `Cópia de D8B714C8-…-F52841A6614F.jpg` — Portugal retreat
-- **Contact form to your inbox.** The form currently opens the visitor's email app, pre-addressed to you. It can be wired to a no-backend service (e.g. Formspree) so messages arrive directly.
+- **Contact form to your inbox (Formspree).** The form is already wired for [Formspree](https://formspree.io) — a free, no-server form service. Until it's set up, the form gracefully falls back to opening the visitor's email app. To switch it to deliver straight to your inbox:
+  1. Sign up free at https://formspree.io with `info@soniayogi.com`.
+  2. Create a **New form** (name it e.g. "soniayogi website"). Set the destination email to `info@soniayogi.com`.
+  3. Formspree gives you an endpoint like `https://formspree.io/f/abcdwxyz`. Copy the ID at the end (`abcdwxyz`).
+  4. In `contact-us.html`, find `action="https://formspree.io/f/YOUR_FORM_ID"` and replace `YOUR_FORM_ID` with your real ID. Commit the change.
+  5. Submit the form once on the live site and confirm the first email arrives (Formspree asks you to verify the address the first time). Done — enquiries now land in your inbox, and the visitor sees a "Thank you" message without leaving the page.
 - **Google Business Profile** at your W4 location, linked to the site — the single biggest lever for "yoga near me" searches.
 - **Google Search Console:** add the property and submit `https://soniayogi.com/sitemap.xml`.

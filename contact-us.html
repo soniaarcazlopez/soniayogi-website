@@ -3,6 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-P2XMLJMWQG"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-P2XMLJMWQG');
+</script>
+
 <title>Contact Sonia | Book Yoga, Meditation, Corporate &amp; Retreats, soniayogi</title>
 <meta name="description" content="Contact Sonia to book online or in-person yoga in West London, join the daily morning meditation, invite her to teach, arrange corporate wellness, or join the 2026 Portugal retreat.">
 <meta name="keywords" content="contact yoga teacher West London, book yoga, morning meditation, invite yoga instructor, corporate yoga enquiry, yoga retreat booking">
@@ -102,7 +111,7 @@
       <p style="margin-top:1.8rem;color:var(--soft);">Prefer email? Use the form and your message will open in your mail app, pre-addressed to Sonia.</p>
     </div>
 
-    <form class="contact-form reveal" id="contactForm">
+    <form class="contact-form reveal" id="contactForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
       <p class="form-note">Fields marked <span aria-hidden="true">*</span><span class="visually-hidden"> required</span> are required.</p>
       <div class="field">
         <label for="name">Name <span class="req" aria-hidden="true">*</span></label>
@@ -120,6 +129,7 @@
         <label for="message">Message <span class="req" aria-hidden="true">*</span></label>
         <textarea id="message" name="message" required aria-required="true"></textarea>
       </div>
+      <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;">
       <button type="submit" class="btn btn-solid" style="justify-self:start;">Send message</button>
       <p id="formNote" role="status" aria-live="polite" style="font-size:.9rem;color:var(--sage-deep);margin:0;"></p>
     </form>
@@ -171,16 +181,56 @@
 
 <script src="assets/site.js"></script>
 <script>
-  document.getElementById('contactForm').addEventListener('submit', function (e) {
-    e.preventDefault();
-    var name = document.getElementById('name').value || '';
-    var email = document.getElementById('email').value || '';
-    var subject = document.getElementById('subject').value || 'Website enquiry';
-    var message = document.getElementById('message').value || '';
-    var body = encodeURIComponent(message + '\n\n, ' + name + ' (' + email + ')');
-    window.location.href = 'mailto:info@soniayogi.com?subject=' + encodeURIComponent(subject) + '&body=' + body;
-    document.getElementById('formNote').textContent = 'Opening your email app… if nothing happens, email info@soniayogi.com directly.';
-  });
+  (function () {
+    var form = document.getElementById('contactForm');
+    var note = document.getElementById('formNote');
+    var action = form.getAttribute('action') || '';
+    var configured = action.indexOf('YOUR_FORM_ID') === -1 && action.indexOf('formspree.io') !== -1;
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      // Fallback: if Formspree isn't set up yet, open the visitor's email app.
+      if (!configured) {
+        var subjectF = document.getElementById('subject').value || 'Website enquiry';
+        var body = encodeURIComponent(
+          document.getElementById('message').value + '\n\nFrom: ' +
+          document.getElementById('name').value + ' (' + document.getElementById('email').value + ')'
+        );
+        window.location.href = 'mailto:info@soniayogi.com?subject=' + encodeURIComponent(subjectF) + '&body=' + body;
+        note.style.color = 'var(--sage-deep)';
+        note.textContent = 'Opening your email app… if nothing happens, email info@soniayogi.com directly.';
+        return;
+      }
+
+      var btn = form.querySelector('button[type="submit"]');
+      btn.disabled = true;
+      note.style.color = 'var(--sage-deep)';
+      note.textContent = 'Sending…';
+
+      fetch(action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      }).then(function (res) {
+        if (res.ok) {
+          form.reset();
+          note.style.color = 'var(--green)';
+          note.textContent = 'Thank you, your message has been sent. Sonia will be in touch soon.';
+        } else {
+          return res.json().then(function (data) {
+            var msg = (data && data.errors) ? data.errors.map(function (x) { return x.message; }).join(', ') : 'Something went wrong.';
+            throw new Error(msg);
+          });
+        }
+      }).catch(function (err) {
+        note.style.color = 'var(--clay)';
+        note.textContent = 'Sorry, that didn\u2019t send (' + err.message + '). Please email info@soniayogi.com directly.';
+      }).finally(function () {
+        btn.disabled = false;
+      });
+    });
+  })();
 
   // pre-fill subject from URL (e.g. ?subject=private-sessions)
   (function () {
