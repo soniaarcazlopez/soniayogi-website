@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sonia Lopez RYT540 — Yoga Teacher</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Hanken+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1E1B14; --soft:#5A5248; --faint:#7A7570;
+    --line:#DDD7CB; --line-lt:#EDE9E2;
+    --bg:#F0EDE5; --white:#FDFAF5;
+    --sage:#4A5C3E; --clay:#8C4A28;
+    --serif:'Cormorant Garamond',Georgia,serif;
+    --sans:'Hanken Grotesk',-apple-system,BlinkMacSystemFont,sans-serif;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  html{font-size:14.5px;-webkit-font-smoothing:antialiased;color:var(--ink);}
+  body{font-family:var(--sans);background:var(--bg);padding:clamp(1.5rem,5vw,3rem) 1rem;}
+  a{color:inherit;text-decoration:none;}
+
+  /* ── page container ── */
+  .page{
+    background:var(--white);
+    max-width:820px;
+    margin:0 auto;
+    padding:60px 68px 64px;
+    box-shadow:0 2px 28px rgba(30,27,20,.1);
+  }
+
+  /* ── header ── */
+  .cv-head{
+    display:grid;
+    grid-template-columns:1fr auto;
+    gap:2rem;
+    align-items:end;
+    padding-bottom:1.5rem;
+    border-bottom:1px solid var(--ink);
+    margin-bottom:1.8rem;
+  }
+  .cv-name{
+    font-family:var(--serif);
+    font-size:3rem;
+    font-weight:400;
+    letter-spacing:0.04em;
+    line-height:1;
+    color:var(--ink);
+  }
+  .cv-sub{
+    display:flex;
+    align-items:center;
+    gap:1.2rem;
+    margin-top:0.65rem;
+    flex-wrap:wrap;
+  }
+  .cv-title{
+    font-family:var(--sans);
+    font-size:0.72rem;
+    font-weight:700;
+    letter-spacing:0.28em;
+    text-transform:uppercase;
+    color:var(--sage);
+  }
+  .cv-ryt{
+    font-family:var(--sans);
+    font-size:0.72rem;
+    font-weight:700;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    color:var(--clay);
+    padding:.32em .9em;
+    border:1px solid var(--clay);
+    border-radius:1px;
+    white-space:nowrap;
+  }
+  address.cv-contact{
+    font-style:normal;
+    text-align:right;
+    font-size:0.8rem;
+    line-height:1.95;
+    color:var(--faint);
+  }
+  address.cv-contact strong{color:var(--ink);font-weight:600;}
+
+  /* ── section label ── */
+  .sec-label{
+    font-family:var(--sans);
+    font-size:0.62rem;
+    font-weight:700;
+    letter-spacing:0.3em;
+    text-transform:uppercase;
+    color:var(--sage);
+    margin-bottom:0.9rem;
+    padding-bottom:0.4rem;
+    border-bottom:1px solid var(--line);
+  }
+  .section{margin-bottom:1.9rem;}
+  .section:last-child{margin-bottom:0;}
+
+  /* ── statement ── */
+  .statement{
+    font-family:var(--serif);
+    font-size:1.15rem;
+    font-weight:400;
+    font-style:italic;
+    line-height:1.65;
+    color:var(--ink);
+    max-width:680px;
+  }
+
+  /* ── two-col ── */
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:0 3.2rem;}
+
+  /* ── expertise ── */
+  .exp-list{list-style:none;padding:0;}
+  .exp-list li{
+    font-size:0.85rem;
+    color:var(--soft);
+    padding:.32rem 0;
+    border-bottom:1px solid var(--line-lt);
+    display:flex;
+    gap:.6rem;
+    align-items:baseline;
+    line-height:1.45;
+  }
+  .exp-list li::before{content:'–';color:var(--clay);font-size:.7rem;flex-shrink:0;}
+
+  /* ── offerings ── */
+  .offering-row{
+    display:grid;
+    grid-template-columns:1fr auto;
+    gap:.4rem 1.2rem;
+    align-items:baseline;
+    padding:.38rem 0;
+    border-bottom:1px solid var(--line-lt);
+    font-size:0.85rem;
+  }
+  .offering-row .name{font-weight:600;color:var(--ink);}
+  .offering-row .detail{color:var(--faint);font-size:0.79rem;text-align:right;white-space:nowrap;}
+
+  /* ── experience ── */
+  .entry{margin-bottom:1.4rem;break-inside:avoid;}
+  .entry:last-child{margin-bottom:0;}
+  .entry-head{
+    display:grid;
+    grid-template-columns:1fr auto;
+    gap:.5rem 1.5rem;
+    align-items:baseline;
+    margin-bottom:.18rem;
+    flex-wrap:wrap;
+  }
+  .entry-role{
+    font-family:var(--serif);
+    font-size:1.22rem;
+    font-weight:500;
+    letter-spacing:0.01em;
+    color:var(--ink);
+  }
+  .entry-date{
+    font-size:0.75rem;
+    font-weight:600;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--clay);
+    white-space:nowrap;
+  }
+  .entry-org{
+    font-size:0.8rem;
+    font-weight:600;
+    color:var(--sage);
+    letter-spacing:0.04em;
+    margin-bottom:0.6rem;
+    text-transform:uppercase;
+  }
+  .entry ul{padding:0;list-style:none;}
+  .entry li{
+    font-size:0.86rem;
+    color:var(--soft);
+    line-height:1.6;
+    margin-bottom:.28rem;
+    padding-left:1rem;
+    position:relative;
+  }
+  .entry li::before{content:'·';position:absolute;left:0;color:var(--clay);}
+
+  /* ── training ── */
+  .training-name{
+    font-family:var(--serif);
+    font-size:1.22rem;
+    font-weight:500;
+  }
+  .training-inst{
+    font-size:0.8rem;
+    font-weight:600;
+    color:var(--sage);
+    text-transform:uppercase;
+    letter-spacing:0.04em;
+    margin:.2rem 0 .5rem;
+  }
+  .training-note{
+    font-size:0.85rem;
+    color:var(--soft);
+    line-height:1.6;
+  }
+
+  /* ── certs ── */
+  .certs{list-style:none;padding:0;}
+  .cert-row{
+    display:grid;
+    grid-template-columns:auto 1fr auto;
+    gap:.4rem 1.2rem;
+    align-items:baseline;
+    padding:.52rem 0;
+    border-bottom:1px solid var(--line-lt);
+    font-size:0.85rem;
+  }
+  .certs li:first-child .cert-row{border-top:1px solid var(--line-lt);}
+  .cert-dot{width:5px;height:5px;border-radius:50%;background:var(--clay);margin-top:.42rem;flex-shrink:0;print-color-adjust:exact;-webkit-print-color-adjust:exact;}
+  .cert-name{font-weight:600;color:var(--ink);line-height:1.45;}
+  .cert-detail{color:var(--faint);font-size:0.8rem;text-align:right;}
+
+  /* ── footer ── */
+  .cv-foot{
+    margin-top:2rem;
+    padding-top:1rem;
+    border-top:1px solid var(--line);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:.5rem;
+  }
+  .cv-foot .site{
+    font-family:var(--serif);
+    font-size:1.05rem;
+    color:var(--sage);
+    letter-spacing:0.03em;
+  }
+  .cv-foot small{font-size:0.68rem;color:var(--line);letter-spacing:0.1em;text-transform:uppercase;}
+
+  /* ── print ── */
+  @media print{
+    body{background:none;padding:0;}
+    .page{box-shadow:none;max-width:100%;padding:0;}
+    @page{margin:.65in .7in;}
+    .entry,.cert-row,.offering-row{break-inside:avoid;}
+    a{color:var(--ink);}
+    .print-btn{display:none;}
+  }
+
+  /* ── screen helper ── */
+  .print-btn{
+    display:flex;justify-content:flex-end;max-width:820px;margin:0 auto 1rem;
+  }
+  .print-btn button{
+    font-family:var(--sans);font-size:0.72rem;font-weight:700;
+    letter-spacing:0.14em;text-transform:uppercase;
+    background:var(--sage);color:#fff;border:none;
+    padding:.8em 1.8em;border-radius:1px;cursor:pointer;transition:.2s;
+  }
+  .print-btn button:hover{background:var(--ink);}
+</style>
+</head>
+<body>
+
+<div class="print-btn"><button onclick="window.print()">Save as PDF</button></div>
+
+<article class="page">
+
+  <!-- HEADER -->
+  <header class="cv-head">
+    <div>
+      <div class="cv-name">Sonia Lopez</div>
+      <div class="cv-sub">
+        <span class="cv-title">Yoga Teacher &amp; Meditation Guide</span>
+        <span class="cv-ryt">RYT 540</span>
+      </div>
+    </div>
+    <address class="cv-contact">
+      <strong>+44 (0) 7828 893 738</strong><br>
+      sonia@soniayogi.com<br>
+      soniayogi.com<br>
+      @sonia.alopezyogi<br>
+      London, UK
+    </address>
+  </header>
+
+  <!-- PROFESSIONAL STATEMENT -->
+  <section class="section">
+    <div class="sec-label">Professional Statement</div>
+    <p class="statement">A Yoga Alliance Registered Teacher (RYT 540), trained under Stewart Gilchrist at the East London School of Yoga, with additional Yin Yoga Alliance certification. I bring over a decade of practice and several years of professional teaching to each session — creating bespoke, high-quality experiences rooted in traditional Vinyasa Krama, Yin, Pranayama and the Patanjali philosophy, designed for discerning guests and private clients who value a practitioner who is as committed to discretion and personalised care as to technical excellence.</p>
+  </section>
+
+  <!-- EXPERTISE + CURRENT OFFERINGS -->
+  <div class="two-col">
+    <section class="section">
+      <div class="sec-label">Specialist Skills</div>
+      <ul class="exp-list">
+        <li>Dynamic Vinyasa Krama &amp; Ashtanga sequencing</li>
+        <li>Yin Yoga and restorative practice</li>
+        <li>Yoga Nidra and guided deep relaxation</li>
+        <li>Pranayama and breathwork</li>
+        <li>Meditation guidance and mindfulness</li>
+        <li>Anatomy, alignment &amp; hands-on adjustments</li>
+        <li>Patanjali Yoga Sutras and the 8 Limbs</li>
+        <li>One to one and small-group private tuition</li>
+        <li>Corporate and executive wellness programmes</li>
+        <li>Retreat planning, hosting and curation</li>
+        <li>Mantra and traditional philosophy integration</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <div class="sec-label">Services Offered</div>
+      <div class="offering-row"><span class="name">Private One to One</span><span class="detail">In person, bespoke</span></div>
+      <div class="offering-row"><span class="name">Private Group Sessions</span><span class="detail">Friends, families, residents</span></div>
+      <div class="offering-row"><span class="name">Yang &amp; Yin (hybrid)</span><span class="detail">Sundays 5:00 to 6:30pm</span></div>
+      <div class="offering-row"><span class="name">Yogasana (hybrid)</span><span class="detail">Tuesdays 6:30 to 8:00pm</span></div>
+      <div class="offering-row"><span class="name">Morning Meditations</span><span class="detail">Weekdays 7:15am, 20 mins</span></div>
+      <div class="offering-row"><span class="name">Corporate Wellness</span><span class="detail">On-site, virtual or hybrid</span></div>
+      <div class="offering-row"><span class="name">Retreat Hosting</span><span class="detail">International, curated</span></div>
+    </section>
+  </div>
+
+  <!-- EXPERIENCE -->
+  <section class="section">
+    <div class="sec-label">Teaching Experience</div>
+
+    <div class="entry">
+      <div class="entry-head">
+        <span class="entry-role">Founder and Lead Teacher</span>
+        <span class="entry-date">2022 to present</span>
+      </div>
+      <div class="entry-org">soniayogi — Independent Practice, West London and Online</div>
+      <ul>
+        <li>Running a successful independent yoga practice serving students in West London (W4 and surrounding), the City and internationally via live-streamed hybrid classes.</li>
+        <li>Delivering daily live Morning Meditations online, growing a consistent and engaged community.</li>
+        <li>Offering bespoke Private Sessions tailored to individual goals: beginner foundations, injury rehabilitation, and deepening of personal practice.</li>
+        <li>Providing Corporate Wellness programmes for organisations, improving workplace wellbeing, focus and resilience.</li>
+        <li>Planning and hosting an international yoga retreat at Terra Raiz, Nazaré, Portugal (October 2026): a curated 4-day programme of Vinyasa Krama, Yin, Yoga Nidra, meditation and holistic wellbeing.</li>
+      </ul>
+    </div>
+
+    <div class="entry">
+      <div class="entry-head">
+        <span class="entry-role">Yoga Teacher</span>
+        <span class="entry-date">2022 to May 2026</span>
+      </div>
+      <div class="entry-org">Lumi Power Yoga, London</div>
+      <ul>
+        <li>Led energetic, safe and inclusive group classes focussed on breath-led movement and traditional yoga philosophy across mixed-level student groups.</li>
+        <li>Provided hands-on adjustments and modifications tailored to individual needs, ensuring a safe and personalised practice for every student.</li>
+        <li>Built a loyal, returning student community through consistent, high-quality instruction and genuine personal connection.</li>
+        <li>Integrated the Patanjali Yoga Sutras, pranayama, mantra and meditation alongside dynamic asana sequences.</li>
+      </ul>
+    </div>
+
+    <div class="entry">
+      <div class="entry-head">
+        <span class="entry-role">Yoga Teacher</span>
+        <span class="entry-date">Prior to 2022</span>
+      </div>
+      <div class="entry-org">Fitness First, London</div>
+      <ul>
+        <li>Delivered energetic, safe and inclusive group yoga classes to varied student populations across multiple London sites.</li>
+      </ul>
+    </div>
+
+  </section>
+
+  <!-- TRAINING -->
+  <section class="section">
+    <div class="sec-label">Training and Education</div>
+
+    <div class="entry" style="margin-bottom:1.2rem;">
+      <div class="training-name">500-Hour Yoga Teacher Training (YTT)</div>
+      <div class="training-inst">East London School of Yoga · Trained by Stewart Gilchrist</div>
+      <p class="training-note">Intensive study of traditional Vinyasa Krama and Ashtanga methodology, the Patanjali Yoga Sutras and the 8 Limbs of yoga, advanced anatomy, alignment and hands-on assists, pranayama, meditation and mantra. Fully qualified and registered with Yoga Alliance International (RYT 540).</p>
+    </div>
+
+    <div class="entry">
+      <div class="training-name">Yin Yoga Teacher Training</div>
+      <div class="training-inst">Yoga Alliance Certified</div>
+      <p class="training-note">Specialist certification in Yin Yoga — long-held postures targeting connective tissue, fascia release, and nervous system regulation. The essential complement to dynamic Yang practice.</p>
+    </div>
+  </section>
+
+  <!-- CERTIFICATIONS -->
+  <section class="section">
+    <div class="sec-label">Certifications and Professional Memberships</div>
+    <ul class="certs">
+      <li>
+        <div class="cert-row">
+          <div class="cert-dot"></div>
+          <div class="cert-name">Registered Yoga Teacher (RYT 540)<br><span style="font-weight:400;color:var(--faint);font-size:.8rem;">Yoga Alliance International</span></div>
+          <div class="cert-detail">Active</div>
+        </div>
+      </li>
+      <li>
+        <div class="cert-row">
+          <div class="cert-dot"></div>
+          <div class="cert-name">Yin Yoga Certification<br><span style="font-weight:400;color:var(--faint);font-size:.8rem;">Yoga Alliance</span></div>
+          <div class="cert-detail">Active</div>
+        </div>
+      </li>
+      <li>
+        <div class="cert-row">
+          <div class="cert-dot"></div>
+          <div class="cert-name">Emergency First Aid for Sport<br><span style="font-weight:400;color:var(--faint);font-size:.8rem;">First Aid for Life · Adult and child emergency life support, first aid for common sports injuries</span></div>
+          <div class="cert-detail">Certified</div>
+        </div>
+      </li>
+      <li>
+        <div class="cert-row">
+          <div class="cert-dot"></div>
+          <div class="cert-name">Public Liability, Professional Indemnity, Sports &amp; Equipment Insurance<br><span style="font-weight:400;color:var(--faint);font-size:.8rem;">Ripe Insure for Sport</span></div>
+          <div class="cert-detail">Insured</div>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="cv-foot">
+    <span class="site">soniayogi.com</span>
+    <small>References available on request</small>
+  </footer>
+
+</article>
+</body>
+</html>
