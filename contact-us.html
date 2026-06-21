@@ -45,11 +45,37 @@
   "url": "https://soniayogi.com/contact-us",
   "name": "Contact soniayogi",
   "mainEntity": {
-    "@type": "Organization",
+    "@type": ["LocalBusiness", "HealthAndBeautyBusiness", "YogaStudio"],
+    "@id": "https://soniayogi.com/#business",
     "name": "soniayogi",
+    "description": "Yoga teacher in Chiswick (W4), West London and online. Private one to one and small-group sessions, hybrid Yang & Yin and Yogasana classes, morning meditation, corporate wellness and retreats.",
+    "url": "https://soniayogi.com/",
     "email": "info@soniayogi.com",
     "telephone": "+44-7828-893738",
-    "areaServed": ["West London", "City of London", "Online"],
+    "image": "https://soniayogi.com/images/hero-sonia.jpg",
+    "priceRange": "££",
+    "currenciesAccepted": "GBP",
+    "address": { "@type": "PostalAddress", "streetAddress": "Chiswick", "addressLocality": "London", "addressRegion": "Greater London", "postalCode": "W4 1LB", "addressCountry": "GB" },
+    "geo": { "@type": "GeoCoordinates", "latitude": 51.4912, "longitude": -0.2554 },
+    "hasMap": "https://www.google.com/maps/search/?api=1&query=W4+1LB",
+    "areaServed": [
+      { "@type": "Place", "name": "Chiswick" },
+      { "@type": "Place", "name": "Acton" },
+      { "@type": "Place", "name": "Ealing" },
+      { "@type": "Place", "name": "Hammersmith" },
+      { "@type": "Place", "name": "Shepherd's Bush" },
+      { "@type": "Place", "name": "Brentford" },
+      { "@type": "Place", "name": "Kew" },
+      { "@type": "Place", "name": "Richmond" },
+      { "@type": "Place", "name": "Barnes" },
+      { "@type": "Place", "name": "Putney" },
+      { "@type": "Place", "name": "Fulham" },
+      { "@type": "Place", "name": "Kensington" },
+      { "@type": "Place", "name": "Notting Hill" },
+      { "@type": "Place", "name": "City of London" },
+      { "@type": "Place", "name": "Online / Worldwide" }
+    ],
+    "serviceArea": { "@type": "GeoCircle", "geoMidpoint": { "@type": "GeoCoordinates", "latitude": 51.4912, "longitude": -0.2554 }, "geoRadius": "11000" },
     "sameAs": ["https://www.instagram.com/sonia.alopezyogi"]
   }
 }
@@ -176,6 +202,7 @@
   <div class="footer-bottom">
     <span>© 2026 soniayogi. All rights reserved.</span>
     <span>West London · The City · Online</span>
+    <span>Web design by <a href="https://dapogeorge.com" target="_blank" rel="noopener">Dapo George</a></span>
   </div>
 </footer>
 

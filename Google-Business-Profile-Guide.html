@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Google Business Profile — Setup Guide for soniayogi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Hanken+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1E1B14; --soft:#5A5248; --faint:#7A7570;
+    --line:#DDD7CB; --line-lt:#EDE9E2;
+    --bg:#F0EDE5; --white:#FDFAF5; --panel:#F4F0E8;
+    --sage:#4A5C3E; --sage-soft:#EAEEE2; --clay:#8C4A28; --clay-soft:#F3E6DD;
+    --serif:'Cormorant Garamond',Georgia,serif;
+    --sans:'Hanken Grotesk',-apple-system,BlinkMacSystemFont,sans-serif;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  html{font-size:15px;-webkit-font-smoothing:antialiased;color:var(--ink);}
+  body{font-family:var(--sans);background:var(--bg);padding:clamp(1.5rem,5vw,3rem) 1rem;line-height:1.62;}
+  a{color:var(--clay);}
+
+  .page{background:var(--white);max-width:860px;margin:0 auto;padding:60px clamp(1.5rem,6vw,72px) 64px;box-shadow:0 2px 28px rgba(30,27,20,.1);}
+
+  /* header */
+  .doc-head{border-bottom:1px solid var(--ink);padding-bottom:1.4rem;margin-bottom:2rem;}
+  .doc-kicker{font-size:0.68rem;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;color:var(--clay);margin-bottom:0.7rem;}
+  .doc-title{font-family:var(--serif);font-size:2.7rem;font-weight:500;line-height:1.05;letter-spacing:0.01em;}
+  .doc-intro{margin-top:0.9rem;color:var(--soft);font-size:1rem;max-width:62ch;}
+
+  /* time estimate banner */
+  .banner{display:flex;gap:1.5rem;flex-wrap:wrap;background:var(--sage-soft);border-radius:3px;padding:1rem 1.3rem;margin-bottom:2.2rem;}
+  .banner div{font-size:0.85rem;color:var(--sage);}
+  .banner strong{display:block;font-family:var(--serif);font-size:1.3rem;font-weight:600;color:var(--ink);}
+
+  /* steps */
+  .step{display:grid;grid-template-columns:auto 1fr;gap:1.3rem;margin-bottom:2rem;break-inside:avoid;}
+  .step-num{font-family:var(--serif);font-size:1.5rem;font-weight:600;color:var(--white);background:var(--sage);width:2.4rem;height:2.4rem;border-radius:50%;display:flex;align-items:center;justify-content:center;line-height:1;flex-shrink:0;print-color-adjust:exact;-webkit-print-color-adjust:exact;}
+  .step-body h2{font-family:var(--serif);font-size:1.5rem;font-weight:500;margin-bottom:0.5rem;line-height:1.15;}
+  .step-body p{color:var(--soft);font-size:0.92rem;margin-bottom:0.6rem;}
+  .step-body ul{padding-left:1.1rem;margin:0.4rem 0 0.7rem;}
+  .step-body li{color:var(--soft);font-size:0.92rem;margin-bottom:0.35rem;}
+  .step-body strong{color:var(--ink);font-weight:600;}
+
+  /* copy field */
+  .field{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--clay);border-radius:2px;padding:0.85rem 1.1rem;margin:0.5rem 0 0.9rem;}
+  .field .lbl{font-size:0.64rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:var(--clay);margin-bottom:0.35rem;}
+  .field .val{font-size:0.92rem;color:var(--ink);line-height:1.55;}
+  .field .val.mono{font-variant-numeric:tabular-nums;}
+
+  .pill-row{display:flex;flex-wrap:wrap;gap:0.4rem;margin:0.5rem 0 0.3rem;}
+  .pill{font-size:0.78rem;font-weight:600;background:var(--white);border:1px solid var(--line);color:var(--soft);padding:0.32em 0.8em;border-radius:2px;}
+  .pill.primary{background:var(--clay-soft);border-color:var(--clay);color:var(--clay);}
+
+  .note{font-size:0.85rem;color:var(--faint);font-style:italic;}
+
+  .divider{height:1px;background:var(--line);margin:2.2rem 0;}
+
+  /* callout */
+  .callout{background:var(--clay-soft);border-radius:3px;padding:1.2rem 1.4rem;margin:1.5rem 0;}
+  .callout h3{font-family:var(--serif);font-size:1.25rem;font-weight:600;margin-bottom:0.4rem;color:var(--ink);}
+  .callout p{font-size:0.9rem;color:var(--soft);margin-bottom:0.4rem;}
+  .callout p:last-child{margin-bottom:0;}
+
+  /* section heading */
+  .sec-head{font-family:var(--serif);font-size:1.9rem;font-weight:500;margin:0 0 1.4rem;padding-top:0.5rem;}
+
+  /* checklist */
+  .checklist{list-style:none;padding:0;}
+  .checklist li{display:flex;gap:0.7rem;align-items:flex-start;padding:0.5rem 0;border-bottom:1px solid var(--line-lt);font-size:0.92rem;color:var(--ink);}
+  .checklist li::before{content:'';width:1.1rem;height:1.1rem;border:1.5px solid var(--sage);border-radius:3px;flex-shrink:0;margin-top:0.15rem;}
+
+  .foot{margin-top:2.5rem;padding-top:1.2rem;border-top:1px solid var(--line);display:flex;justify-content:space-between;flex-wrap:wrap;gap:0.5rem;align-items:center;}
+  .foot .site{font-family:var(--serif);font-size:1.05rem;color:var(--sage);}
+  .foot small{font-size:0.7rem;color:var(--faint);letter-spacing:0.08em;text-transform:uppercase;}
+
+  .print-btn{display:flex;justify-content:flex-end;max-width:860px;margin:0 auto 1rem;}
+  .print-btn button{font-family:var(--sans);font-size:0.72rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;background:var(--sage);color:#fff;border:none;padding:.8em 1.8em;border-radius:1px;cursor:pointer;}
+  .print-btn button:hover{background:var(--ink);}
+
+  @media print{
+    body{background:none;padding:0;}
+    .page{box-shadow:none;max-width:100%;padding:0;}
+    @page{margin:.6in .7in;}
+    .step,.callout,.field,.banner{break-inside:avoid;}
+    .print-btn{display:none;}
+    a{color:var(--ink);}
+  }
+</style>
+</head>
+<body>
+
+<div class="print-btn"><button onclick="window.print()">Save as PDF</button></div>
+
+<article class="page">
+
+  <header class="doc-head">
+    <div class="doc-kicker">Local SEO · Action Guide</div>
+    <h1 class="doc-title">Setting up your Google Business Profile</h1>
+    <p class="doc-intro">This is the single most important step to appear in "yoga near me" and Google Maps results across West London. Everything below is pre-written with your details, just copy, paste and click. Work through it in one sitting.</p>
+  </header>
+
+  <div class="banner">
+    <div><strong>~20 min</strong>to create</div>
+    <div><strong>Free</strong>always</div>
+    <div><strong>3 to 14 days</strong>for Google to verify you</div>
+  </div>
+
+  <!-- STEP 1 -->
+  <div class="step">
+    <div class="step-num">1</div>
+    <div class="step-body">
+      <h2>Start your profile</h2>
+      <p>Go to <strong>business.google.com</strong> and sign in with the Google account you want to manage this from (ideally a business Gmail, not a personal one, if you have it). Click <strong>"Manage now"</strong> then <strong>"Add your business."</strong></p>
+      <div class="field">
+        <div class="lbl">Business name</div>
+        <div class="val">soniayogi</div>
+      </div>
+      <p class="note">Use exactly this, the same name everywhere online helps Google trust you. Don't add keywords like "yoga West London" to the name, it breaks Google's rules.</p>
+    </div>
+  </div>
+
+  <!-- STEP 2 -->
+  <div class="step">
+    <div class="step-num">2</div>
+    <div class="step-body">
+      <h2>Choose your categories</h2>
+      <p>Set the <strong>primary category</strong> first, then add the others as additional categories. These decide which searches you show up for.</p>
+      <div class="pill-row">
+        <span class="pill primary">Yoga instructor — primary</span>
+        <span class="pill">Yoga studio</span>
+        <span class="pill">Meditation instructor</span>
+        <span class="pill">Meditation center</span>
+        <span class="pill">Wellness program</span>
+      </div>
+      <p class="note">"Yoga instructor" fits you best as a teacher who travels to clients. You can refine these any time.</p>
+    </div>
+  </div>
+
+  <!-- STEP 3 -->
+  <div class="step">
+    <div class="step-num">3</div>
+    <div class="step-body">
+      <h2>Set your location type</h2>
+      <p>Google will ask "Do you want to add a location customers can visit?" Because you teach in clients' homes, online and at venues rather than a public studio, choose <strong>No</strong>, this makes you a <strong>service-area business</strong>. Your home address stays private; only your service area shows.</p>
+      <p>When asked for your address (kept private, for verification only):</p>
+      <div class="field">
+        <div class="lbl">Address — private, verification only</div>
+        <div class="val mono">Your W4 1LB address<br>London, United Kingdom</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 4 -->
+  <div class="step">
+    <div class="step-num">4</div>
+    <div class="step-body">
+      <h2>Define your service area</h2>
+      <p>Add the areas you serve, this is what targets your West London visibility. Add these one by one:</p>
+      <div class="pill-row">
+        <span class="pill">Chiswick</span><span class="pill">Acton</span><span class="pill">Ealing</span>
+        <span class="pill">Hammersmith</span><span class="pill">Shepherd's Bush</span><span class="pill">Brentford</span>
+        <span class="pill">Kew</span><span class="pill">Richmond</span><span class="pill">Barnes</span>
+        <span class="pill">Putney</span><span class="pill">Fulham</span><span class="pill">Kensington</span>
+        <span class="pill">Notting Hill</span>
+      </div>
+      <p class="note">Tip: Google lets you add up to 20 areas. Keep them within ~7 miles of W4 so you stay relevant, adding all of London would dilute you.</p>
+    </div>
+  </div>
+
+  <!-- STEP 5 -->
+  <div class="step">
+    <div class="step-num">5</div>
+    <div class="step-body">
+      <h2>Add contact details</h2>
+      <div class="field">
+        <div class="lbl">Phone</div>
+        <div class="val mono">+44 (0) 7828 893 738</div>
+      </div>
+      <div class="field">
+        <div class="lbl">Website</div>
+        <div class="val">https://soniayogi.com</div>
+      </div>
+      <p class="note">Use the same phone number that appears on your website, matching details build trust with Google.</p>
+    </div>
+  </div>
+
+  <!-- STEP 6 -->
+  <div class="step">
+    <div class="step-num">6</div>
+    <div class="step-body">
+      <h2>Verify your business</h2>
+      <p>Google needs to confirm you're real. Depending on what they offer you, this is by <strong>postcard</strong> (a code mailed to your address, 5 to 14 days), <strong>phone</strong>, <strong>email</strong>, or <strong>video</strong>. Choose whatever's available and complete it, your profile won't show publicly until you do.</p>
+      <p class="note">If offered video verification, it's the fastest, have your phone ready to film your teaching space and a prop or two.</p>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <h2 class="sec-head">Once verified — fill it out fully</h2>
+  <p style="color:var(--soft);font-size:0.92rem;margin-bottom:1.5rem;">A complete profile ranks far better than a bare one. Paste these in under "Edit profile."</p>
+
+  <!-- DESCRIPTION -->
+  <div class="step">
+    <div class="step-num">7</div>
+    <div class="step-body">
+      <h2>Business description</h2>
+      <p>Paste this into the "From the business" description (it's within Google's 750-character limit):</p>
+      <div class="field">
+        <div class="lbl">Description — copy &amp; paste</div>
+        <div class="val">soniayogi offers fun, flowing and transformative yoga across West London and online. Led by Sonia, a 500-hour Yoga Alliance certified teacher based in Chiswick (W4), classes are rooted in tradition and tailored to every level. Choose hybrid Yang &amp; Yin and Yogasana group classes, daily live morning meditations, bespoke private one to one and small-group sessions in your home or chosen venue, and corporate wellness for teams. Sonia also hosts an annual international yoga retreat. Whether you are a complete beginner or deepening an established practice, you are welcome. Pause, breathe and be present, get in touch to book or to plan a private session.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SERVICES -->
+  <div class="step">
+    <div class="step-num">8</div>
+    <div class="step-body">
+      <h2>Add your services</h2>
+      <p>Under "Services," add each of these (name + short description). They appear as a menu on your profile and help you rank for each search.</p>
+      <div class="field">
+        <div class="lbl">Service 1</div>
+        <div class="val"><strong>Private Yoga Sessions</strong> — One to one or small-group yoga in person, at your home or a chosen venue, tailored to your goals. Pricing on request.</div>
+      </div>
+      <div class="field">
+        <div class="lbl">Service 2</div>
+        <div class="val"><strong>Yang &amp; Yin Yoga (hybrid)</strong> — Dynamic Vinyasa flow into restorative Yin. In person or live online. Sundays, all levels.</div>
+      </div>
+      <div class="field">
+        <div class="lbl">Service 3</div>
+        <div class="val"><strong>Yogasana (hybrid)</strong> — Meditation and mantra into a dynamic Yogasana flow. In person or live online. Tuesdays, all levels.</div>
+      </div>
+      <div class="field">
+        <div class="lbl">Service 4</div>
+        <div class="val"><strong>Morning Meditations</strong> — Live 20-minute online meditation, weekday mornings at 7:15am. Donation based.</div>
+      </div>
+      <div class="field">
+        <div class="lbl">Service 5</div>
+        <div class="val"><strong>Corporate Yoga &amp; Wellness</strong> — Bespoke on-site, virtual or hybrid yoga programmes for teams.</div>
+      </div>
+      <div class="field">
+        <div class="lbl">Service 6</div>
+        <div class="val"><strong>Yoga Retreats</strong> — Curated international yoga retreats, including the 2026 Portugal retreat.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HOURS -->
+  <div class="step">
+    <div class="step-num">9</div>
+    <div class="step-body">
+      <h2>Hours &amp; booking links</h2>
+      <p>Set hours that reflect when you teach and take enquiries, for example:</p>
+      <div class="field">
+        <div class="lbl">Suggested hours</div>
+        <div class="val mono">Mon to Fri&nbsp;&nbsp;7:00am to 8:00pm<br>Sat&nbsp;&nbsp;8:00am to 1:00pm<br>Sun&nbsp;&nbsp;9:00am to 7:00pm</div>
+      </div>
+      <p>Then add your <strong>Eventbrite booking links</strong> under "Bookings," and set the profile's main action button to your website or phone.</p>
+    </div>
+  </div>
+
+  <!-- PHOTOS -->
+  <div class="step">
+    <div class="step-num">10</div>
+    <div class="step-body">
+      <h2>Add photos</h2>
+      <p>Profiles with photos get far more clicks. Upload <strong>8 to 12</strong> good images, you already have them on your site:</p>
+      <ul>
+        <li>Your portrait / logo as the profile photo</li>
+        <li>You teaching, in flow, meditating (the ones from your homepage)</li>
+        <li>The retreat venue shots</li>
+        <li>Add a few fresh ones over time, Google rewards activity</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout">
+    <h3>The secret weapon: reviews</h3>
+    <p>After every class or private session with a happy client, ask them to leave a Google review. <strong>Reviews are one of the top three local ranking factors</strong>, and they're what convince new clients to book.</p>
+    <p>Google gives you a short "review link" you can text or email, send it with a warm one-liner: "It would mean a lot if you'd share a few words about your practice with me."</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <h2 class="sec-head">After Google Business Profile</h2>
+  <p style="color:var(--soft);font-size:0.92rem;margin-bottom:1.3rem;">Once your profile is live, these compound your local visibility:</p>
+  <ul class="checklist">
+    <li><strong>Google Search Console</strong> — verify soniayogi.com and submit your sitemap (https://soniayogi.com/sitemap.xml) so Google indexes the site.</li>
+    <li><strong>Get listed consistently</strong> — Yoga Alliance teacher directory, local Chiswick &amp; West London business listings, yoga apps. Use the exact same name, phone and website everywhere.</li>
+    <li><strong>Keep the profile active</strong> — post updates, photos or class news every couple of weeks. Active profiles rank higher.</li>
+    <li><strong>Gather reviews steadily</strong> — a few each month beats a sudden burst.</li>
+    <li><strong>Link your Instagram</strong> — @sonia.alopezyogi, social signals reinforce your presence.</li>
+  </ul>
+
+  <footer class="foot">
+    <span class="site">soniayogi.com</span>
+    <small>Local SEO guide · Chiswick &amp; West London</small>
+  </footer>
+
+</article>
+</body>
+</html>
