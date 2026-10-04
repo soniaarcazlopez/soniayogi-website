@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="omelette-owns-print" content="true">
+<title>Retreat Business Card, soniayogi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400;1,500&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
+<style>
+:root{--ink:#1A1A17;--soft:#56564E;--line:#E2E2DB;--green:#4C7A2E;--green-bright:#8CC63E;--white:#fff;--serif:'Cormorant Garamond',Georgia,serif;--sans:'Hanken Grotesk',sans-serif;}
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+body{background:#E9E9E4;font-family:var(--sans);color:var(--ink);display:flex;flex-direction:column;align-items:center;gap:28px;padding:40px 16px;}
+a{color:var(--ink);text-decoration:none;}
+.hint{font-size:13px;color:var(--soft);text-align:center;max-width:520px;line-height:1.5;}
+.hint strong{color:var(--ink);}
+.row{display:flex;gap:28px;flex-wrap:wrap;justify-content:center;}
+.tag{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--soft);font-weight:600;margin-bottom:8px;text-align:center;}
+.card{width:85mm;height:55mm;position:relative;overflow:hidden;background:var(--white);box-shadow:0 6px 24px rgba(0,0,0,.14);}
+/* front */
+.front img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+.front::after{content:'';position:absolute;inset:0;background:linear-gradient(100deg,rgba(18,22,14,.82) 0%,rgba(18,22,14,.55) 55%,rgba(18,22,14,.15) 100%);}
+.front .inner{position:absolute;inset:0;z-index:2;padding:5.5mm 6mm;display:flex;flex-direction:column;justify-content:space-between;color:#fff;}
+.front .frame{position:absolute;inset:2.6mm;border:.25mm solid rgba(255,255,255,.55);z-index:2;pointer-events:none;}
+.brand{font-family:var(--serif);font-weight:600;font-size:12pt;letter-spacing:.02em;display:flex;align-items:center;gap:1.2mm;}
+.brand svg{width:3.2mm;height:3.2mm;color:var(--green-bright);}
+.kicker{font-size:5.6pt;letter-spacing:.26em;text-transform:uppercase;font-weight:600;color:#D9E8C6;margin-bottom:1.6mm;}
+.front h1{font-family:var(--serif);font-weight:500;font-size:17pt;line-height:1.02;}
+.front h1 em{font-style:italic;color:#CFE6B4;}
+.front .meta{font-size:6.4pt;letter-spacing:.08em;text-transform:uppercase;font-weight:600;display:flex;gap:2.4mm;align-items:center;}
+.front .meta i{width:1mm;height:1mm;border-radius:50%;background:var(--green-bright);display:inline-block;}
+/* back */
+.back{padding:5mm 5.5mm;display:grid;grid-template-columns:1fr auto;gap:4mm;align-items:center;}
+.back .frame{position:absolute;inset:2.6mm;border:.25mm solid var(--ink);pointer-events:none;}
+.back .brand{color:var(--ink);font-size:11pt;margin-bottom:2.2mm;}
+.back .brand svg{color:var(--green);}
+.back h2{font-family:var(--serif);font-weight:500;font-size:11.5pt;line-height:1.12;margin-bottom:1.8mm;}
+.back h2 em{font-style:italic;color:var(--green);}
+.back .dep{font-size:6.2pt;color:var(--soft);line-height:1.45;margin-bottom:2.6mm;}
+.back .dep strong{color:var(--ink);}
+.contact{border-top:.25mm solid var(--ink);padding-top:1.8mm;font-size:6.6pt;line-height:1.6;font-weight:500;}
+.contact span{display:block;}
+.qrwrap{display:flex;flex-direction:column;align-items:center;gap:1.2mm;}
+.qr{width:23mm;height:23mm;}
+.qr svg{width:100%;height:100%;display:block;}
+.qrlabel{font-size:5.4pt;letter-spacing:.2em;text-transform:uppercase;font-weight:700;color:var(--green);}
+.url{font-size:5.6pt;color:var(--soft);}
+@page{size:85mm 55mm;margin:0;}
+@media print{
+  body{background:none;padding:0;gap:0;display:block;}
+  .hint,.tag{display:none;}
+  .row{display:block;}
+  .card{box-shadow:none;page-break-after:always;break-after:page;}
+}
+</style>
+</head>
+<body>
+<p class="hint"><strong>Business card, 85 × 55 mm, double-sided.</strong> Print to PDF at 100% scale (no margins), or send the PDF to a printer. Scan the QR code with your phone to test it.</p>
+<div class="row">
+  <div>
+    <div class="tag">Front</div>
+    <section class="card front">
+      <img src="images/retreat.jpg" alt="">
+      <div class="frame"></div>
+      <div class="inner">
+        <div class="brand">soniayogi<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></div>
+        <div>
+          <div class="kicker">Portugal yoga retreat</div>
+          <h1>Pause. Breathe.<br><em>Be present.</em></h1>
+        </div>
+        <div class="meta"><span>8 to 11 Oct 2027</span><i></i><span>Nazaré</span><i></i><span>All levels</span></div>
+      </div>
+    </section>
+  </div>
+  <div>
+    <div class="tag">Back</div>
+    <section class="card back">
+      <div class="frame"></div>
+      <div>
+        <div class="brand">soniayogi<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></div>
+        <h2>Four days of yoga,<br><em>rest &amp; the Atlantic.</em></h2>
+        <p class="dep">Limited spaces. Secure yours with a <strong>£250 deposit</strong>.</p>
+        <div class="contact"><span>info@soniayogi.com</span><span>+44 (0) 7828 893 738</span></div>
+      </div>
+      <div class="qrwrap">
+        <div class="qr" data-url="https://soniayogi.com/retreat?utm_source=card&amp;utm_medium=print&amp;utm_campaign=retreat27"></div>
+        <div class="qrlabel">Scan to book</div>
+        <div class="url">soniayogi.com/retreat</div>
+      </div>
+    </section>
+  </div>
+</div>
+<script>
+document.querySelectorAll('.qr').forEach(function(el){
+  var qr=qrcode(0,'Q');qr.addData(el.dataset.url);qr.make();
+  var n=qr.getModuleCount(),q=4,s=n+q*2,d='';
+  for(var r=0;r<n;r++)for(var c=0;c<n;c++)if(qr.isDark(r,c))d+='M'+(c+q)+' '+(r+q)+'h1v1h-1z';
+  el.innerHTML='<svg viewBox="0 0 '+s+' '+s+'" shape-rendering="crispEdges" role="img" aria-label="QR code to soniayogi.com/retreat"><rect width="'+s+'" height="'+s+'" fill="#fff"/><path d="'+d+'" fill="#1A1A17"/></svg>';
+});
+</script>
+</body>
+</html>
