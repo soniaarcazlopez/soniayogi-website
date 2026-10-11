@@ -80,6 +80,43 @@
   }
 }
 </script>
+<style id="site-fixes">
+/* ---------- thin line frame on images ---------- */
+.hero-img,.svc .ph,.class-media,.about-img,.stillness-img,.retreat-feature-media,.retreat-detail .media,.rt-hero-img,.rt-media.single img{outline:1px solid var(--ink);outline-offset:7px;box-shadow:none;}
+.band-sage .stillness-img,.band-sage .retreat-feature-media,.band-sage .retreat-detail .media,.band-sage .rt-media.single img{outline-color:rgba(255,255,255,.75);}
+.svc .ph{margin-bottom:calc(1.4rem + 8px);}
+
+/* instagram brand colours */
+.footer-social a:hover .ig-color *{stroke:#fff;}
+.footer-social a:hover .ig-color circle:last-child{fill:#fff;}
+
+/* email buttons, blue */
+.footer-social a.email-btn{background:transparent;border-color:rgba(250,246,236,.25);color:#5B9BE6;}
+.footer-social a.email-btn:hover{background:transparent;border-color:#5B9BE6;color:#8AB8F0;}
+.btn-email{background:transparent;border-color:#1A5FB4;color:#1A5FB4;}
+.btn-email:hover{background:transparent;border-color:#134A8E;color:#134A8E;transform:translateY(-2px);}
+/* email buttons, blue */
+.footer-social a.email-btn{background:transparent;border-color:rgba(250,246,236,.25);color:#5B9BE6;}
+.footer-social a.email-btn:hover{background:transparent;border-color:#5B9BE6;color:#8AB8F0;}
+.btn-email{background:transparent;border-color:#1A5FB4;color:#1A5FB4;}
+.btn-email:hover{background:transparent;border-color:#134A8E;color:#134A8E;transform:translateY(-2px);}
+/* instagram brand colours */
+.footer-social a:hover .ig-color *{stroke:#fff;}
+.footer-social a:hover .ig-color circle:last-child{fill:#fff;}
+/* ---------- WhatsApp ---------- */
+.wa-fab{position:fixed;right:16px;bottom:16px;z-index:90;display:inline-flex;align-items:center;justify-content:center;gap:6px;height:40px;padding:0 12px 0 10px;border-radius:999px;background:#25D366;color:#fff;text-decoration:none;font-family:var(--body);font-weight:700;font-size:12px;box-shadow:0 0 0 1px var(--ink),0 4px 14px rgba(0,0,0,.18);transition:transform .2s ease,background .2s ease;}
+.wa-fab svg{width:20px;height:20px;flex-shrink:0;}
+.wa-fab .wa-fab-text{color:#0B2E16;}
+.wa-fab:hover{background:#1EBE5A;transform:translateY(-2px);}
+.wa-fab:focus-visible{outline:3px solid var(--ink);outline-offset:4px;}
+@media(max-width:640px){.wa-fab{width:40px;padding:0 !important;}.wa-fab .wa-fab-text{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;}}
+@media(prefers-reduced-motion:reduce){.wa-fab{transition:none;}.wa-fab:hover{transform:none;}}
+@media print{.wa-fab{display:none;}}
+.footer-social a.wa-btn{color:#25D366;}
+.footer-social a.wa-btn:hover{background:transparent;border-color:#25D366;color:#4BE083;}
+.footer-social a.wa-btn svg{width:20px;height:20px;}
+.site-footer{padding-bottom:calc(2.5rem + 52px);}
+</style>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
