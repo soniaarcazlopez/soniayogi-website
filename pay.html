@@ -134,6 +134,7 @@
 .site-footer{padding-bottom:calc(2.5rem + 52px);}
 </style>
 <style id="pay-styles">
+[hidden]{display:none !important;}
 .pay-grid{display:grid;grid-template-columns:1.3fr .7fr;gap:clamp(2rem,5vw,4.5rem);align-items:start;}
 .pay-two{display:grid;grid-template-columns:1fr 1fr;gap:1.1rem;}
 .field select{font-family:var(--body);font-size:1rem;padding:.85em 1em;border:1px solid var(--line);border-radius:3px;background:var(--white);color:var(--ink);min-height:48px;}
@@ -369,7 +370,7 @@
     'private':{label:'Private session',g:'request private',time:'In person at your home or chosen venue. Choose a preferred date and time and Sonia will confirm.'},
     'corporate':{label:'Corporate yoga',g:'request corporate',time:'On-site, virtual or hybrid. Choose a preferred date and time for your session or discovery call.'},
     'retreat-deposit':{label:'Retreat deposit',g:'retreat',amount:200,time:'8 to 11 October 2027, Terra Raíz, Alcobaça, Portugal.'},
-    'retreat-balance':{label:'Retreat balance',g:'retreat',time:'8 to 11 October 2027. Final balance due 9 August 2027.'},
+    'retreat-balance':{label:'Retreat balance',g:'',time:'8 to 11 October 2027. Final balance due 9 August 2027.'},
     'other':{label:'Payment',g:'',time:''}
   };
   var $=function(id){return document.getElementById(id);};
@@ -438,7 +439,7 @@
     if(v==='meditation')data['Joining']='Live online';
     if(g.indexOf('private')>-1){data['Venue']=f.venue.value.trim();data['People']=f.people.value;}
     if(g.indexOf('corporate')>-1){data['Company']=f.company.value.trim();data['Group size']=f.size.value||'Not given';data['Format']=f.cformat.value;}
-    if(g.indexOf('retreat')>-1)data['Room']=(f.querySelector('input[name=room]:checked')||{}).value;
+    if(g.indexOf('retreat')>-1&&v==='retreat-deposit')data['Room']=(f.querySelector('input[name=room]:checked')||{}).value;
     data['Amount']=amount?'£'+amount:'To be quoted';
     data['Notes']=f.notes.value.trim()||'None';data['Terms']='Agreed';
     if(amount)data['Monzo reference']=ref;
