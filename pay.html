@@ -363,6 +363,7 @@
 <script>
 (function(){
   var MONZO='https://monzo.me/soniaarcazlopez';
+  var ZOOM={'yang-yin':'https://us06web.zoom.us/meeting/register/Lr-DINWGQ563m0s11CJ4jQ','yogasana':'https://us06web.zoom.us/meeting/register/wukzUReMQyy_CZuloMFyvw','meditation':'https://us06web.zoom.us/j/77298971924?pwd=DxNbcadrG263n3rgo8RmzILvoxfaoS.1'};
   var CFG={
     'yang-yin':{label:'Yang & Yin',g:'class hybrid',dows:[0],time:'Sundays, 5:00 to 6:30pm UK, 90 mins',start:17},
     'yogasana':{label:'Yogasana',g:'class hybrid',dows:[2],time:'Tuesdays, 6:30 to 8:00pm UK, 90 mins',start:18.5},
@@ -427,12 +428,12 @@
     var v=sel.value,c=CFG[v],g=c.g.split(' '),name=f.name.value.trim();
     var amount=parseFloat(amt.value)>0?parseFloat(amt.value).toFixed(2).replace(/\.00$/,''):'';
     var when='',short='';
-    if(g.indexOf('class')>-1){var o=dsel.options[dsel.selectedIndex];when=(o?o.textContent:'')+', '+c.time;short=o?o.textContent.split(' ').slice(1,3).join(' '):'';}
+    if(g.indexOf('class')>-1){var o=dsel.options[dsel.selectedIndex];when=(o?o.textContent:'')+', '+c.time.replace(/^[^,]*,\s*/,'');short=o?(function(p){return p[1]+' '+p[2].slice(0,3);})(o.textContent.split(' ')):'';}
     if(g.indexOf('request')>-1&&din.value){var p=din.value.split('-'),dd=new Date(+p[0],p[1]-1,+p[2]);when=nice(dd)+', '+tsel.options[tsel.selectedIndex].text;short=dd.getDate()+' '+MON[dd.getMonth()].slice(0,3);}
     var ref=(c.label+(short?' '+short:'')+' '+name).replace(/&/g,'and').slice(0,40);
     var url=amount?MONZO+'/'+amount+'?d='+encodeURIComponent(ref):'';
     var data={_subject:(amount?'New booking: ':'Booking request: ')+c.label+(short?' '+short:'')+(amount?', £'+amount:'')+', '+name,_template:'table',_captcha:'false',_replyto:f.email.value.trim(),
-      'Booking':sel.options[sel.selectedIndex].text,'Name':name,'Email':f.email.value.trim(),'Phone':f.phone.value.trim()};
+      'Booking':sel.options[sel.selectedIndex].text,'Name':name,'email':f.email.value.trim(),'Phone':f.phone.value.trim()};
     if(when)data['Date and time']=when;
     if(g.indexOf('class')>-1)data['Ticket']=ticket();
     if(g.indexOf('hybrid')>-1)data['Joining']=(f.querySelector('input[name=format]:checked')||{}).value;
@@ -443,11 +444,25 @@
     data['Amount']=amount?'£'+amount:'To be quoted';
     data['Notes']=f.notes.value.trim()||'None';data['Terms']='Agreed';
     if(amount)data['Monzo reference']=ref;
+    var online=v==='meditation'||(g.indexOf('hybrid')>-1&&data['Joining']==='Live online');
+    var zoom=online&&ZOOM[v];
+    var first=name.split(' ')[0];
+    var ar='Hi '+first+',\n\nThank you for booking '+c.label+' with soniayogi.'+(when?'\n\nWhen: '+when:'')+'\n';
+    if(zoom){
+      ar+=(zoom.indexOf('/register/')>-1?'\nYOUR ZOOM LINK\nRegister here (one time only): '+zoom+'\nZoom will then email you your personal join link, which works for every class.\n':'\nYOUR ZOOM LINK\nJoin here: '+zoom+'\nThis same link works for every session, so save this email.\n')+
+          '\nBefore class\n- Join 5 minutes early. You will wait in the Zoom waiting room until Sonia admits you.\n- Please keep your camera on, so Sonia can guide your alignment safely.\n- Have a mat and enough clear space to move.\n- Please do not share the link.\n';
+      if(amount)ar+='\nIf you have not completed your £'+amount+' payment on Monzo yet, you can do so here: '+url+'\n';
+    } else {
+      ar+='\nSonia has received your booking and will confirm by email, usually within 24 hours.\n';
+    }
+    ar+='\nAny questions, just reply to this email, or call or WhatsApp +44 (0) 7828 893 738.\n\nWith warmth,\nSonia\nsoniayogi.com';
+    data._autoresponse=ar;
     btn.disabled=true;btn.textContent='Sending…';
     var win=url?window.open('about:blank','_blank'):null;
     function done(){
       if(url){if(win){win.location.href=url;}else{location.href=url;return;}$('pf-monzo-link').href=url;}
       else{$('pf-done-h').textContent='Thank you, your request has been sent';$('pf-done-pay').hidden=true;$('pf-done-msg').textContent='Sonia will reply by email to confirm the time, venue and price.';}
+      if(zoom)$('pf-done-msg').textContent='Check your inbox: your Zoom link is on its way to '+data.email+'. If you cannot see it, check your spam folder.';
       document.querySelector('.pay-grid').hidden=true;var d=$('pf-done');d.hidden=false;d.focus();
     }
     if(window.gtag)gtag('event',url?'begin_checkout':'generate_lead',{currency:'GBP',value:amount?parseFloat(amount):0,items:[{item_name:c.label}]});
