@@ -11,7 +11,7 @@
   gtag('js', new Date());
   gtag('config', 'G-P2XMLJMWQG');
 </script>
-<title>Make a payment, soniayogi</title>
+<title>Book and pay, soniayogi</title>
 <meta name="description" content="Pay for your soniayogi retreat, private session or class securely via Monzo.">
 <meta name="keywords" content="yoga retreat Portugal, yoga retreat Portugal 2027, yoga retreat October 2027, yoga retreat near Lisbon, Nazaré yoga retreat, Alcobaça yoga retreat, Silver Coast yoga retreat, yoga retreat from London, yoga retreat for beginners, all levels yoga retreat, yin yoga retreat, yoga nidra retreat, meditation retreat Portugal, alcohol free retreat, wellness retreat Portugal, eco retreat Portugal, small group yoga retreat, solo travel yoga retreat, Terra Raíz">
 <meta name="robots" content="noindex, follow">
@@ -143,6 +143,8 @@
 .pay-radios{display:flex;gap:1.4rem;flex-wrap:wrap;}
 .pay-radios label,.pay-check{display:flex;gap:.6rem;align-items:flex-start;font-size:.98rem;color:var(--ink);cursor:pointer;min-height:24px;}
 .pay-radios input,.pay-check input{width:20px;height:20px;margin-top:.15rem;accent-color:var(--sage-deep);flex-shrink:0;}
+.pay-stack{flex-direction:column;gap:.7rem;}
+.pay-note{font-size:.92rem;color:var(--sage-deep);font-weight:600;margin:.3rem 0 0;}
 .pay-help{font-size:.88rem;color:var(--soft);margin:0;}
 .pay-error{color:#A12C1F;font-weight:600;font-size:.92rem;margin:0;min-height:1px;}
 .pay-hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0;}
@@ -182,10 +184,10 @@
 </header>
 <main id="main">
 <div class="wrap">
-  <div class="page-hero" data-screen-label="Pay">
-    <span class="label">Secure payment via Monzo</span>
-    <h1>Make a payment</h1>
-    <p>Fill in your details first so Sonia knows exactly who you are and what you're paying for. You'll then go straight to Monzo to pay securely.</p>
+  <div class="page-hero" data-screen-label="Book and pay">
+    <span class="label">Book &amp; pay securely via Monzo</span>
+    <h1>Book your practice</h1>
+    <p>Choose your class, date and time, add your details, then pay securely on Monzo. Sonia receives your booking by email straight away.</p>
   </div>
 </div>
 <section class="section" style="padding-top:clamp(1rem,2vw,1.5rem);"><div class="wrap">
@@ -193,32 +195,93 @@
     <form class="contact-form pay-form" id="payForm" novalidate>
       <input type="text" name="_honey" class="pay-hp" tabindex="-1" autocomplete="off" aria-hidden="true">
       <div class="field">
-        <label for="pf-for">What are you paying for?</label>
+        <label for="pf-for">What would you like to book?</label>
         <select id="pf-for" name="booking" required>
-          <option value="retreat-deposit">2027 Portugal retreat, £200 deposit</option>
-          <option value="retreat-balance">2027 Portugal retreat, balance or instalment</option>
-          <option value="private">Private session</option>
-          <option value="class">Class or class pass</option>
-          <option value="other">Something else</option>
+          <optgroup label="Weekly classes">
+            <option value="yang-yin">Yang &amp; Yin, Sundays 5:00 to 6:30pm</option>
+            <option value="yogasana">Yogasana, Tuesdays 6:30 to 8:00pm</option>
+            <option value="meditation">Morning Meditation, weekdays 7:15am</option>
+          </optgroup>
+          <optgroup label="One to one and teams">
+            <option value="private">Private session</option>
+            <option value="corporate">Corporate yoga</option>
+          </optgroup>
+          <optgroup label="2027 Portugal retreat">
+            <option value="retreat-deposit">Retreat deposit, £200</option>
+            <option value="retreat-balance">Retreat balance or instalment</option>
+          </optgroup>
+          <optgroup label="Other">
+            <option value="other">Something else</option>
+          </optgroup>
         </select>
+        <p class="pay-note" id="pf-sched" aria-live="polite"></p>
       </div>
+
+      <fieldset class="field pay-room" data-g="class">
+        <legend>Ticket</legend>
+        <div class="pay-radios pay-stack">
+          <label><input type="radio" name="ticket" value="Drop-in, single class" checked> Drop-in, single class</label>
+          <label><input type="radio" name="ticket" value="Monthly subscription, 4 classes"> Monthly subscription, 4 classes</label>
+          <label><input type="radio" name="ticket" value="Gift package, 5 classes"> Gift package, 5 classes</label>
+        </div>
+      </fieldset>
+
+      <fieldset class="field pay-room" data-g="hybrid">
+        <legend>How will you join?</legend>
+        <div class="pay-radios">
+          <label><input type="radio" name="format" value="In person, West London" checked> In person, West London</label>
+          <label><input type="radio" name="format" value="Live online"> Live online</label>
+        </div>
+      </fieldset>
+
+      <div class="field" data-g="class">
+        <label for="pf-date-sel" id="pf-date-lbl">Date</label>
+        <select id="pf-date-sel" name="classdate" required></select>
+      </div>
+
+      <div class="pay-two" data-g="request">
+        <div class="field"><label for="pf-date-in">Preferred date</label><input type="date" id="pf-date-in" name="reqdate" required></div>
+        <div class="field"><label for="pf-time">Preferred time</label><select id="pf-time" name="reqtime" required></select></div>
+      </div>
+
+      <div class="field" data-g="private">
+        <label for="pf-venue">Where would you like the session?</label>
+        <input type="text" id="pf-venue" name="venue" required placeholder="Your home address, postcode, or chosen venue" autocomplete="street-address">
+      </div>
+      <div class="field" data-g="private">
+        <label for="pf-people">Number of people</label>
+        <select id="pf-people" name="people"><option>Just me</option><option>2 people</option><option>3 to 5 people</option><option>6 or more people</option></select>
+      </div>
+
+      <div class="pay-two" data-g="corporate">
+        <div class="field"><label for="pf-company">Company</label><input type="text" id="pf-company" name="company" required autocomplete="organization"></div>
+        <div class="field"><label for="pf-size">Group size</label><input type="number" id="pf-size" name="size" min="1" inputmode="numeric"></div>
+      </div>
+      <div class="field" data-g="corporate">
+        <label for="pf-cformat">Format</label>
+        <select id="pf-cformat" name="cformat"><option>On-site at our office</option><option>Virtual</option><option>Hybrid</option></select>
+      </div>
+
       <div class="field">
-        <label for="pf-amount">Amount (£)</label>
-        <input type="number" id="pf-amount" name="amount" min="1" step="0.01" inputmode="decimal" required>
-        <p class="pay-help" id="pf-amount-help">Agreed with Sonia beforehand for balances, private sessions and passes.</p>
+        <label for="pf-amount" id="pf-amount-lbl">Amount (£)</label>
+        <input type="number" id="pf-amount" name="amount" min="1" step="0.01" inputmode="decimal">
+        <p class="pay-help" id="pf-amount-help"></p>
       </div>
+
       <div class="pay-two">
         <div class="field"><label for="pf-name">Full name</label><input type="text" id="pf-name" name="name" required autocomplete="name"></div>
         <div class="field"><label for="pf-phone">Phone</label><input type="tel" id="pf-phone" name="phone" required autocomplete="tel"></div>
       </div>
       <div class="field"><label for="pf-email">Email</label><input type="email" id="pf-email" name="email" required autocomplete="email"></div>
-      <fieldset class="field pay-room" id="pf-room-wrap">
+
+      <fieldset class="field pay-room" data-g="retreat">
         <legend>Room preference</legend>
         <div class="pay-radios">
           <label><input type="radio" name="room" value="Shared room" checked> Shared room</label>
           <label><input type="radio" name="room" value="Private room (+€30 per day)"> Private room (+€30 per day)</label>
         </div>
       </fieldset>
+
       <div class="field">
         <label for="pf-notes">Health notes or message (optional)</label>
         <textarea id="pf-notes" name="notes" placeholder="Injuries, medical conditions, pregnancy, dietary needs, or anything Sonia should know"></textarea>
@@ -226,22 +289,23 @@
       <label class="pay-check"><input type="checkbox" id="pf-terms" name="terms" value="Agreed" required> <span>I have read and agree to the <a href="terms.html" target="_blank" rel="noopener">terms and conditions</a>.</span></label>
       <p class="pay-error" id="pf-error" role="alert" aria-live="assertive"></p>
       <button type="submit" class="btn btn-solid" id="pf-submit">Continue to payment</button>
-      <p class="pay-help">Your details are emailed to Sonia, then Monzo opens with the amount and your reference already filled in.</p>
+      <p class="pay-help" id="pf-submit-help">Your booking is emailed to Sonia, then Monzo opens with the amount and your reference already filled in.</p>
     </form>
     <aside class="pay-aside">
       <h2>What happens next</h2>
       <ol class="rt-steps">
-        <li><span>Sonia receives your details by email straight away.</span></li>
-        <li><span>You pay securely on Monzo, with your name as the reference.</span></li>
-        <li><span>Sonia confirms your booking by email, usually within 24 hours.</span></li>
+        <li><span>Sonia receives your booking by email straight away.</span></li>
+        <li><span>You pay securely on Monzo, with your class and name as the reference.</span></li>
+        <li><span>Sonia confirms by email, with the location or online link, usually within 24 hours.</span></li>
       </ol>
       <p class="pay-help">Prefer to talk first? Call or WhatsApp <a href="tel:+447828893738">+44 (0) 7828 893 738</a>, or email <a href="mailto:info@soniayogi.com">info@soniayogi.com</a>.</p>
     </aside>
   </div>
   <div class="pay-done" id="pf-done" hidden tabindex="-1">
-    <h2>Thank you, your details have been sent</h2>
-    <p>Monzo should now be open in a new tab. If it didn't open, <a id="pf-monzo-link" href="#" target="_blank" rel="noopener">tap here to pay on Monzo</a>.</p>
-    <p>Sonia will confirm your booking by email once your payment arrives.</p>
+    <h2 id="pf-done-h">Thank you, your booking has been sent</h2>
+    <p id="pf-done-pay">Monzo should now be open in a new tab. If it didn't open, <a id="pf-monzo-link" href="#" target="_blank" rel="noopener">tap here to pay on Monzo</a>.</p>
+    <p id="pf-done-msg">Sonia will confirm your booking by email once your payment arrives.</p>
+    <p><a class="link" href="pay.html" style="color:var(--ink);">Make another booking →</a></p>
   </div>
 </div></section>
 </main>
@@ -270,7 +334,7 @@
         <li><a href="online-yoga.html">Online Yoga</a></li>
         <li><a href="about-testimonials.html">About &amp; Testimonials</a></li>
         <li><a href="contact-us.html">Contact Us</a></li>
-        <li><a href="pay.html">Make a payment</a></li>
+        <li><a href="pay.html">Book &amp; pay</a></li>
       </ul>
     </div>
     <div class="footer-col">
@@ -298,42 +362,95 @@
 <script>
 (function(){
   var MONZO='https://monzo.me/soniaarcazlopez';
-  var PRESET={'retreat-deposit':200};
-  var LABEL={'retreat-deposit':'Retreat deposit','retreat-balance':'Retreat balance','private':'Private session','class':'Class','other':'Payment'};
-  var f=document.getElementById('payForm'),sel=document.getElementById('pf-for'),amt=document.getElementById('pf-amount'),
-      room=document.getElementById('pf-room-wrap'),err=document.getElementById('pf-error'),btn=document.getElementById('pf-submit');
-  var q=new URLSearchParams(location.search);
-  if(q.get('for')&&LABEL[q.get('for')])sel.value=q.get('for');
-  if(q.get('amount'))amt.value=q.get('amount');
-  function sync(){
-    var v=sel.value;
-    if(PRESET[v]){amt.value=PRESET[v];amt.readOnly=true;}else{amt.readOnly=false;if(amt.value==='200'&&!q.get('amount'))amt.value='';}
-    room.hidden=v.indexOf('retreat')!==0;
+  var CFG={
+    'yang-yin':{label:'Yang & Yin',g:'class hybrid',dows:[0],time:'Sundays, 5:00 to 6:30pm UK, 90 mins',start:17},
+    'yogasana':{label:'Yogasana',g:'class hybrid',dows:[2],time:'Tuesdays, 6:30 to 8:00pm UK, 90 mins',start:18.5},
+    'meditation':{label:'Morning Meditation',g:'class',dows:[1,2,3,4,5],time:'Monday to Friday, 7:15am UK, 20 mins, live online',start:7.25},
+    'private':{label:'Private session',g:'request private',time:'In person at your home or chosen venue. Choose a preferred date and time and Sonia will confirm.'},
+    'corporate':{label:'Corporate yoga',g:'request corporate',time:'On-site, virtual or hybrid. Choose a preferred date and time for your session or discovery call.'},
+    'retreat-deposit':{label:'Retreat deposit',g:'retreat',amount:200,time:'8 to 11 October 2027, Terra Raíz, Alcobaça, Portugal.'},
+    'retreat-balance':{label:'Retreat balance',g:'retreat',time:'8 to 11 October 2027. Final balance due 9 August 2027.'},
+    'other':{label:'Payment',g:'',time:''}
+  };
+  var $=function(id){return document.getElementById(id);};
+  var f=$('payForm'),sel=$('pf-for'),amt=$('pf-amount'),err=$('pf-error'),btn=$('pf-submit'),dsel=$('pf-date-sel'),din=$('pf-date-in'),tsel=$('pf-time');
+  var DAYS=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],MON=['January','February','March','April','May','June','July','August','September','October','November','December'];
+  function iso(d){return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2);}
+  function nice(d){return DAYS[d.getDay()]+' '+d.getDate()+' '+MON[d.getMonth()]+' '+d.getFullYear();}
+  for(var m=7*60;m<=20*60;m+=30){var hh=Math.floor(m/60),mm=m%60,ap=hh<12?'am':'pm',h12=hh>12?hh-12:hh;var o=document.createElement('option');o.value=('0'+hh).slice(-2)+':'+('0'+mm).slice(-2);o.textContent=h12+':'+('0'+mm).slice(-2)+ap;tsel.appendChild(o);}
+  tsel.value='10:00';
+  var t=new Date();din.min=iso(new Date(t.getFullYear(),t.getMonth(),t.getDate()+1));
+  function fillDates(c){
+    dsel.innerHTML='';var now=new Date(),d=new Date(now.getFullYear(),now.getMonth(),now.getDate()),n=0,max=c.dows.length>1?20:10;
+    for(var i=0;i<90&&n<max;i++){
+      if(c.dows.indexOf(d.getDay())>-1){
+        var past=i===0&&(now.getHours()+now.getMinutes()/60)>=c.start;
+        if(!past){var o=document.createElement('option');o.value=iso(d);o.textContent=nice(d);dsel.appendChild(o);n++;}
+      }
+      d.setDate(d.getDate()+1);
+    }
   }
-  sel.addEventListener('change',sync);sync();
+  function ticket(){var r=f.querySelector('input[name=ticket]:checked');return r?r.value:'';}
+  function sync(){
+    var v=sel.value,c=CFG[v],g=c.g.split(' ');
+    [].forEach.call(f.querySelectorAll('[data-g]'),function(el){el.hidden=g.indexOf(el.dataset.g)<0;});
+    $('pf-sched').textContent=c.time;
+    if(c.dows)fillDates(c);
+    $('pf-date-lbl').textContent=ticket().indexOf('Drop-in')===0?'Date':'First class date';
+    var req=g.indexOf('request')>-1;
+    amt.readOnly=!!c.amount;
+    if(c.amount)amt.value=c.amount;else if(amt.dataset.preset)amt.value='';
+    amt.dataset.preset=c.amount?'1':'';
+    amt.required=!req;
+    $('pf-amount-lbl').textContent=g.indexOf('class')>-1?'Your donation (£)':req?'Amount, if already agreed (£, optional)':'Amount (£)';
+    $('pf-amount-help').textContent=g.indexOf('class')>-1?'Classes are donation based, give what you feel. For a pass, enter the total for all classes.':req?'Leave blank and Sonia will reply with a tailored quote before you pay.':v==='retreat-balance'?'The amount agreed in your payment plan.':'';
+    updateBtn();
+  }
+  function updateBtn(){
+    var req=CFG[sel.value].g.indexOf('request')>-1,pay=!req||parseFloat(amt.value)>0;
+    btn.textContent=pay?'Continue to payment':'Send booking request';
+    $('pf-submit-help').textContent=pay?'Your booking is emailed to Sonia, then Monzo opens with the amount and your reference already filled in.':'Your request is emailed to Sonia, who will reply to confirm the time, venue and price.';
+  }
+  sel.addEventListener('change',sync);amt.addEventListener('input',updateBtn);
+  [].forEach.call(f.querySelectorAll('input[name=ticket]'),function(r){r.addEventListener('change',function(){$('pf-date-lbl').textContent=ticket().indexOf('Drop-in')===0?'Date':'First class date';});});
+  var q=new URLSearchParams(location.search);
+  if(q.get('for')&&CFG[q.get('for')])sel.value=q.get('for');
+  sync();
+  if(q.get('amount')&&!amt.readOnly){amt.value=q.get('amount');updateBtn();}
+  function shown(el){return !el.closest('[hidden]');}
   f.addEventListener('submit',function(e){
     e.preventDefault();err.textContent='';
     if(f._honey.value)return;
-    var bad=[].slice.call(f.querySelectorAll('[required]')).filter(function(el){return el.type==='checkbox'?!el.checked:!el.value.trim()||(el.checkValidity&&!el.checkValidity());});
+    var bad=[].slice.call(f.querySelectorAll('[required]')).filter(shown).filter(function(el){return el.type==='checkbox'?!el.checked:!String(el.value).trim()||(el.checkValidity&&!el.checkValidity());});
     if(bad.length){err.textContent=bad[0].id==='pf-terms'?'Please tick to agree to the terms and conditions.':'Please fill in all the required fields correctly.';bad[0].focus();return;}
-    var amount=parseFloat(amt.value).toFixed(2).replace(/\.00$/,'');
-    var name=f.name.value.trim();
-    var ref=(LABEL[sel.value]+' '+name).slice(0,40);
-    var url=MONZO+'/'+amount+'?d='+encodeURIComponent(ref);
-    var data={_subject:'New payment: '+LABEL[sel.value]+' £'+amount+', '+name,_template:'table',_captcha:'false',
-      'Paying for':sel.options[sel.selectedIndex].text,'Amount':'£'+amount,'Name':name,'Email':f.email.value.trim(),'Phone':f.phone.value.trim(),
-      'Room':room.hidden?'n/a':(f.querySelector('input[name=room]:checked')||{}).value,'Notes':f.notes.value.trim()||'None','Terms':'Agreed','Monzo reference':ref,_replyto:f.email.value.trim()};
+    var v=sel.value,c=CFG[v],g=c.g.split(' '),name=f.name.value.trim();
+    var amount=parseFloat(amt.value)>0?parseFloat(amt.value).toFixed(2).replace(/\.00$/,''):'';
+    var when='',short='';
+    if(g.indexOf('class')>-1){var o=dsel.options[dsel.selectedIndex];when=(o?o.textContent:'')+', '+c.time;short=o?o.textContent.split(' ').slice(1,3).join(' '):'';}
+    if(g.indexOf('request')>-1&&din.value){var p=din.value.split('-'),dd=new Date(+p[0],p[1]-1,+p[2]);when=nice(dd)+', '+tsel.options[tsel.selectedIndex].text;short=dd.getDate()+' '+MON[dd.getMonth()].slice(0,3);}
+    var ref=(c.label+(short?' '+short:'')+' '+name).replace(/&/g,'and').slice(0,40);
+    var url=amount?MONZO+'/'+amount+'?d='+encodeURIComponent(ref):'';
+    var data={_subject:(amount?'New booking: ':'Booking request: ')+c.label+(short?' '+short:'')+(amount?', £'+amount:'')+', '+name,_template:'table',_captcha:'false',_replyto:f.email.value.trim(),
+      'Booking':sel.options[sel.selectedIndex].text,'Name':name,'Email':f.email.value.trim(),'Phone':f.phone.value.trim()};
+    if(when)data['Date and time']=when;
+    if(g.indexOf('class')>-1)data['Ticket']=ticket();
+    if(g.indexOf('hybrid')>-1)data['Joining']=(f.querySelector('input[name=format]:checked')||{}).value;
+    if(v==='meditation')data['Joining']='Live online';
+    if(g.indexOf('private')>-1){data['Venue']=f.venue.value.trim();data['People']=f.people.value;}
+    if(g.indexOf('corporate')>-1){data['Company']=f.company.value.trim();data['Group size']=f.size.value||'Not given';data['Format']=f.cformat.value;}
+    if(g.indexOf('retreat')>-1)data['Room']=(f.querySelector('input[name=room]:checked')||{}).value;
+    data['Amount']=amount?'£'+amount:'To be quoted';
+    data['Notes']=f.notes.value.trim()||'None';data['Terms']='Agreed';
+    if(amount)data['Monzo reference']=ref;
     btn.disabled=true;btn.textContent='Sending…';
-    var win=window.open('about:blank','_blank');
-    function go(){
-      if(win){win.location.href=url;}else{location.href=url;return;}
-      document.getElementById('pf-monzo-link').href=url;
-      document.querySelector('.pay-grid').hidden=true;
-      var d=document.getElementById('pf-done');d.hidden=false;d.focus();
+    var win=url?window.open('about:blank','_blank'):null;
+    function done(){
+      if(url){if(win){win.location.href=url;}else{location.href=url;return;}$('pf-monzo-link').href=url;}
+      else{$('pf-done-h').textContent='Thank you, your request has been sent';$('pf-done-pay').hidden=true;$('pf-done-msg').textContent='Sonia will reply by email to confirm the time, venue and price.';}
+      document.querySelector('.pay-grid').hidden=true;var d=$('pf-done');d.hidden=false;d.focus();
     }
-    if(window.gtag)gtag('event','begin_checkout',{currency:'GBP',value:parseFloat(amount),items:[{item_name:LABEL[sel.value]}]});
-    fetch('https://formsubmit.co/ajax/info@soniayogi.com',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(data)})
-      .then(go,go);
+    if(window.gtag)gtag('event',url?'begin_checkout':'generate_lead',{currency:'GBP',value:amount?parseFloat(amount):0,items:[{item_name:c.label}]});
+    fetch('https://formsubmit.co/ajax/info@soniayogi.com',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(data)}).then(done,done);
   });
 })();
 </script>
