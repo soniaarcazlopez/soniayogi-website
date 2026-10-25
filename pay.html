@@ -199,6 +199,7 @@
         <label for="pf-for">What would you like to book?</label>
         <select id="pf-for" name="booking" required>
           <optgroup label="Weekly classes">
+            <option value="saturday">Vinyasa Flow, Saturdays 9:00am, Chiswick Town Hall</option>
             <option value="yang-yin">Yang &amp; Yin, Sundays 5:00 to 6:30pm</option>
             <option value="yogasana">Yogasana, Tuesdays 6:30 to 8:00pm</option>
             <option value="meditation">Morning Meditation, weekdays 7:15am</option>
@@ -218,12 +219,12 @@
         <p class="pay-note" id="pf-sched" aria-live="polite"></p>
       </div>
 
-      <fieldset class="field pay-room" data-g="class">
+      <fieldset class="field pay-room" data-g="ticket">
         <legend>Ticket</legend>
         <div class="pay-radios pay-stack">
-          <label><input type="radio" name="ticket" value="Drop-in, single class" checked> Drop-in, single class</label>
-          <label><input type="radio" name="ticket" value="Monthly subscription, 4 classes"> Monthly subscription, 4 classes</label>
-          <label><input type="radio" name="ticket" value="Gift package, 5 classes"> Gift package, 5 classes</label>
+          <label><input type="radio" name="ticket" value="Drop-in, single class" checked> Drop-in, single class (donation based)</label>
+          <label><input type="radio" name="ticket" value="Package of 4 classes, £45" data-price="45"> Package of 4 classes, £45</label>
+          <label><input type="radio" name="ticket" value="Gift package of 5 classes, £55" data-price="55"> Gift package of 5 classes, £55</label>
         </div>
       </fieldset>
 
@@ -263,7 +264,7 @@
         <select id="pf-cformat" name="cformat"><option>On-site at our office</option><option>Virtual</option><option>Hybrid</option></select>
       </div>
 
-      <div class="field">
+      <div class="field" id="pf-amount-wrap">
         <label for="pf-amount" id="pf-amount-lbl">Amount (£)</label>
         <input type="number" id="pf-amount" name="amount" min="1" step="0.01" inputmode="decimal">
         <p class="pay-help" id="pf-amount-help"></p>
@@ -365,8 +366,9 @@
   var MONZO='https://monzo.me/soniaarcazlopez';
   var ZOOM={'yang-yin':'https://us06web.zoom.us/meeting/register/Lr-DINWGQ563m0s11CJ4jQ','yogasana':'https://us06web.zoom.us/meeting/register/wukzUReMQyy_CZuloMFyvw','meditation':'https://us06web.zoom.us/j/77298971924?pwd=DxNbcadrG263n3rgo8RmzILvoxfaoS.1'};
   var CFG={
-    'yang-yin':{label:'Yang & Yin',g:'class hybrid',dows:[0],time:'Sundays, 5:00 to 6:30pm UK, 90 mins',start:17},
-    'yogasana':{label:'Yogasana',g:'class hybrid',dows:[2],time:'Tuesdays, 6:30 to 8:00pm UK, 90 mins',start:18.5},
+    'saturday':{label:'Vinyasa Flow Saturday',g:'class inperson',dows:[6],time:'Saturdays, 9:00am, 75 mins, Chiswick Town Hall, Heathfield Terrace, London W4 4JN',start:9},
+    'yang-yin':{label:'Yang & Yin',g:'class ticket hybrid',dows:[0],time:'Sundays, 5:00 to 6:30pm UK, 90 mins',start:17},
+    'yogasana':{label:'Yogasana',g:'class ticket hybrid',dows:[2],time:'Tuesdays, 6:30 to 8:00pm UK, 90 mins',start:18.5},
     'meditation':{label:'Morning Meditation',g:'class',dows:[1,2,3,4,5],time:'Monday to Friday, 7:15am UK, 20 mins, live online',start:7.25},
     'private':{label:'Private session',g:'request private',time:'In person at your home or chosen venue. Choose a preferred date and time and Sonia will confirm.'},
     'corporate':{label:'Corporate yoga',g:'request corporate',time:'On-site, virtual or hybrid. Choose a preferred date and time for your session or discovery call.'},
@@ -399,22 +401,27 @@
     $('pf-sched').textContent=c.time;
     if(c.dows)fillDates(c);
     $('pf-date-lbl').textContent=ticket().indexOf('Drop-in')===0?'Date':'First class date';
-    var req=g.indexOf('request')>-1;
-    amt.readOnly=!!c.amount;
-    if(c.amount)amt.value=c.amount;else if(amt.dataset.preset)amt.value='';
-    amt.dataset.preset=c.amount?'1':'';
-    amt.required=!req;
-    $('pf-amount-lbl').textContent=g.indexOf('class')>-1?'Your donation (£)':req?'Amount, if already agreed (£, optional)':'Amount (£)';
-    $('pf-amount-help').textContent=g.indexOf('class')>-1?'Classes are donation based, give what you feel. For a pass, enter the total for all classes.':req?'Leave blank and Sonia will reply with a tailored quote before you pay.':v==='retreat-balance'?'The amount agreed in your payment plan.':'';
+    var req=g.indexOf('request')>-1,inp=g.indexOf('inperson')>-1;
+    $('pf-amount-wrap').hidden=inp;
+    var tk=g.indexOf('ticket')>-1?f.querySelector('input[name=ticket]:checked'):null,tp=tk&&tk.dataset.price;
+    var preset=c.amount||tp;
+    amt.readOnly=!!preset;
+    if(preset)amt.value=preset;else if(amt.dataset.preset)amt.value='';
+    amt.dataset.preset=preset?'1':'';
+    amt.required=!req&&!inp;
+    $('pf-amount-lbl').textContent=tp?'Package price (£)':g.indexOf('class')>-1?'Your donation (£)':req?'Amount, if already agreed (£, optional)':'Amount (£)';
+    $('pf-amount-help').textContent=tp?'Your package covers '+(tp==='45'?'4':'5')+' classes. Sonia will confirm your class dates by email.':g.indexOf('class')>-1?'Drop-in classes are donation based, give what you feel.':req?'Leave blank and Sonia will reply with a tailored quote before you pay.':v==='retreat-balance'?'The amount agreed in your payment plan.':'';
     updateBtn();
   }
   function updateBtn(){
-    var req=CFG[sel.value].g.indexOf('request')>-1,pay=!req||parseFloat(amt.value)>0;
+    var gg=CFG[sel.value].g,req=gg.indexOf('request')>-1;
+    if(gg.indexOf('inperson')>-1){btn.textContent='Reserve my place';$('pf-submit-help').textContent='Your booking is emailed to Sonia. Please pay £12.50 in person when you arrive.';return;}
+    var pay=!req||parseFloat(amt.value)>0;
     btn.textContent=pay?'Continue to payment':'Send booking request';
     $('pf-submit-help').textContent=pay?'Your booking is emailed to Sonia, then Monzo opens with the amount and your reference already filled in.':'Your request is emailed to Sonia, who will reply to confirm the time, venue and price.';
   }
   sel.addEventListener('change',sync);amt.addEventListener('input',updateBtn);
-  [].forEach.call(f.querySelectorAll('input[name=ticket]'),function(r){r.addEventListener('change',function(){$('pf-date-lbl').textContent=ticket().indexOf('Drop-in')===0?'Date':'First class date';});});
+  [].forEach.call(f.querySelectorAll('input[name=ticket]'),function(r){r.addEventListener('change',sync);});
   var q=new URLSearchParams(location.search);
   if(q.get('for')&&CFG[q.get('for')])sel.value=q.get('for');
   sync();
@@ -426,22 +433,24 @@
     var bad=[].slice.call(f.querySelectorAll('[required]')).filter(shown).filter(function(el){return el.type==='checkbox'?!el.checked:!String(el.value).trim()||(el.checkValidity&&!el.checkValidity());});
     if(bad.length){err.textContent=bad[0].id==='pf-terms'?'Please tick to agree to the terms and conditions.':'Please fill in all the required fields correctly.';bad[0].focus();return;}
     var v=sel.value,c=CFG[v],g=c.g.split(' '),name=f.name.value.trim();
-    var amount=parseFloat(amt.value)>0?parseFloat(amt.value).toFixed(2).replace(/\.00$/,''):'';
+    var inp=g.indexOf('inperson')>-1;
+    var amount=!inp&&parseFloat(amt.value)>0?parseFloat(amt.value).toFixed(2).replace(/\.00$/,''):'';
     var when='',short='';
     if(g.indexOf('class')>-1){var o=dsel.options[dsel.selectedIndex];when=(o?o.textContent:'')+', '+c.time.replace(/^[^,]*,\s*/,'');short=o?(function(p){return p[1]+' '+p[2].slice(0,3);})(o.textContent.split(' ')):'';}
     if(g.indexOf('request')>-1&&din.value){var p=din.value.split('-'),dd=new Date(+p[0],p[1]-1,+p[2]);when=nice(dd)+', '+tsel.options[tsel.selectedIndex].text;short=dd.getDate()+' '+MON[dd.getMonth()].slice(0,3);}
     var ref=(c.label+(short?' '+short:'')+' '+name).replace(/&/g,'and').slice(0,40);
     var url=amount?MONZO+'/'+amount+'?d='+encodeURIComponent(ref):'';
-    var data={_subject:(amount?'New booking: ':'Booking request: ')+c.label+(short?' '+short:'')+(amount?', £'+amount:'')+', '+name,_template:'table',_captcha:'false',_replyto:f.email.value.trim(),
+    var data={_subject:(amount||inp?'New booking: ':'Booking request: ')+c.label+(short?' '+short:'')+(amount?', £'+amount:'')+', '+name,_template:'table',_captcha:'false',_replyto:f.email.value.trim(),
       'Booking':sel.options[sel.selectedIndex].text,'Name':name,'email':f.email.value.trim(),'Phone':f.phone.value.trim()};
     if(when)data['Date and time']=when;
-    if(g.indexOf('class')>-1)data['Ticket']=ticket();
+    if(g.indexOf('ticket')>-1)data['Ticket']=ticket();
+    if(inp){data['Venue']='Chiswick Town Hall, W4';data['Ticket']='Drop-in';}
     if(g.indexOf('hybrid')>-1)data['Joining']=(f.querySelector('input[name=format]:checked')||{}).value;
     if(v==='meditation')data['Joining']='Live online';
     if(g.indexOf('private')>-1){data['Venue']=f.venue.value.trim();data['People']=f.people.value;}
     if(g.indexOf('corporate')>-1){data['Company']=f.company.value.trim();data['Group size']=f.size.value||'Not given';data['Format']=f.cformat.value;}
     if(g.indexOf('retreat')>-1&&v==='retreat-deposit')data['Room']=(f.querySelector('input[name=room]:checked')||{}).value;
-    data['Amount']=amount?'£'+amount:'To be quoted';
+    data['Amount']=inp?'£12.50, to pay in person':amount?'£'+amount:'To be quoted';
     data['Notes']=f.notes.value.trim()||'None';data['Terms']='Agreed';
     if(amount)data['Monzo reference']=ref;
     var online=v==='meditation'||(g.indexOf('hybrid')>-1&&data['Joining']==='Live online');
@@ -452,6 +461,8 @@
       ar+=(zoom.indexOf('/register/')>-1?'\nYOUR ZOOM LINK\nRegister here (one time only): '+zoom+'\nZoom will then email you your personal join link, which works for every class.\n':'\nYOUR ZOOM LINK\nJoin here: '+zoom+'\nThis same link works for every session, so save this email.\n')+
           '\nBefore class\n- Join 5 minutes early. You will wait in the Zoom waiting room until Sonia admits you.\n- Please keep your camera on, so Sonia can guide your alignment safely.\n- Have a mat and enough clear space to move.\n- Please do not share the link.\n';
       if(amount)ar+='\nIf you have not completed your £'+amount+' payment on Monzo yet, you can do so here: '+url+'\n';
+    } else if(inp){
+      ar+='\nYour place is reserved.\n\nWhere: Chiswick Town Hall, Heathfield Terrace, London W4 4JN\nPrice: £12.50, paid in person on the day\n\nBefore class\n- Please arrive 5 to 10 minutes early to settle in.\n- Wear comfortable clothes you can move in.\n- Let Sonia know before class about any injuries or health conditions.\n';
     } else {
       ar+='\nSonia has received your booking and will confirm by email, usually within 24 hours.\n';
     }
@@ -462,6 +473,7 @@
     function done(){
       if(url){if(win){win.location.href=url;}else{location.href=url;return;}$('pf-monzo-link').href=url;}
       else{$('pf-done-h').textContent='Thank you, your request has been sent';$('pf-done-pay').hidden=true;$('pf-done-msg').textContent='Sonia will reply by email to confirm the time, venue and price.';}
+      if(inp){$('pf-done-h').textContent='Thank you, your place is reserved';$('pf-done-msg').textContent='A confirmation is on its way to '+data.email+'. See you at Chiswick Town Hall, please bring £12.50 to pay on the day.';}
       if(zoom)$('pf-done-msg').textContent='Check your inbox: your Zoom link is on its way to '+data.email+'. If you cannot see it, check your spam folder.';
       document.querySelector('.pay-grid').hidden=true;var d=$('pf-done');d.hidden=false;d.focus();
     }
