@@ -477,7 +477,7 @@
       if(zoom)$('pf-done-msg').textContent='Check your inbox: your Zoom link is on its way to '+data.email+'. If you cannot see it, check your spam folder.';
       document.querySelector('.pay-grid').hidden=true;var d=$('pf-done');d.hidden=false;d.focus();
     }
-    if(window.gtag)gtag('event',url?'begin_checkout':'generate_lead',{currency:'GBP',value:amount?parseFloat(amount):0,items:[{item_name:c.label}]});
+    if(window.gtag){var gp={currency:'GBP',value:amount?parseFloat(amount):0,booking:c.label,items:[{item_name:c.label}]};gtag('event','generate_lead',gp);if(url)gtag('event','begin_checkout',gp);}
     fetch('https://formsubmit.co/ajax/info@soniayogi.com',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(data)}).then(done,done);
   });
 })();
